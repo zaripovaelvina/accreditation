@@ -1,0 +1,21 @@
+name: CI
+
+
+on:
+  push:
+    branches: [ master, main ]
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/chekot@v2
+      - uses: actions/setup-java@v2
+        with:
+          distributation: 'temurin'
+          java-version: '17'
+      - name: maven build
+        run: mvn -B test
+
