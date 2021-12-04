@@ -1,0 +1,28 @@
+POST http://localhost:8080/media/multipart
+Content-Type: multipart/form-data; boundary=WebBoundary
+
+--WebBoundary
+Content-Disposition: form-data; name="file"; filename="media.jpg"
+Content-Type: image/jpeg
+
+<media.jpg
+--WebBoundary
+
+###
+
+POST http://localhost:8080/media/multi-multipart
+Content-Type: multipart/form-data; boundary=WebBoundary
+
+--WebBoundary
+Content-Disposition: form-data; name="files"; filename="media.jpg"
+Content-Type: image/jpeg
+
+<media.jpg
+--WebBoundary
+Content-Disposition: form-data; name="files"; filename="music.mp3"
+Content-Type: audio/mpeg
+
+< music.mp3
+--WebBoundary
+
+### REST

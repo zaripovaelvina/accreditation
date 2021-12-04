@@ -20,7 +20,14 @@ CREATE TABLE organization -- таблица организаций
     status INT  NOT NULL
 );
 
-CREATE TABLE competitions
+CREATE TABLE events -- мероприятия
+(
+    id     BIGSERIAL PRIMARY KEY,
+    name   TEXT NOT NULL,
+    status BOOLEAN DEFAULT FALSE
+);
+
+CREATE TABLE disciplines -- дисциплины
 (
     id            BIGSERIAL PRIMARY KEY,
     name          TEXT NOT NULL,
@@ -60,28 +67,24 @@ CREATE TABLE person -- таблица участников
     created            timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE person_competitions -- таблица соответствий участника с дисциплиной
+CREATE TABLE person_disciplines -- таблица соответствий участника с дисциплиной
 (
     id              BIGSERIAL PRIMARY KEY,
-    person_id       INT
-        CONSTRAINT person_competitions_person_id_fk REFERENCES person,
-    competitions_id INT
-        CONSTRAINT person_competitions_competitions_id_fk REFERENCES competitions,
+    person_id       INT,
+    event_id        INT,
+    disciplines_id INT,
     organization_id INT
-        CONSTRAINT person_competitions_organization_id_fk REFERENCES organization
 );
 
-CREATE TABLE person_competitions_weapon
+CREATE TABLE person_disciplines_weapon -- заявка
 (
     id                     BIGSERIAL PRIMARY KEY,
-    person_id              INT
-        CONSTRAINT person_competitions_weapon_person_id_fk REFERENCES person,
-    weapon_id              INT
-        CONSTRAINT person_competitions_weapon_weapon_id_fk REFERENCES weapon,
+    person_id              INT,
+    weapon_id              INT,
     weapon_manufacturer    TEXT NOT NULL,
     permit_serial          TEXT NOT NULL,
     permit_num             TEXT NOT NULL,
-    permit_date            date,
+    permit_date            DATE,
     permit_manufacturer    TEXT NOT NULL,
     person_competitions_id INT,
     file                   TEXT NOT NULL
