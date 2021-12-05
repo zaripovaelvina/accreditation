@@ -5,7 +5,7 @@ Content-Type: multipart/form-data; boundary=WebBoundary
 Content-Disposition: form-data; name="file"; filename="media.jpg"
 Content-Type: image/jpeg
 
-<media.jpg
+< media.jpg
 --WebBoundary
 
 ###
@@ -17,7 +17,7 @@ Content-Type: multipart/form-data; boundary=WebBoundary
 Content-Disposition: form-data; name="files"; filename="media.jpg"
 Content-Type: image/jpeg
 
-<media.jpg
+< media.jpg
 --WebBoundary
 Content-Disposition: form-data; name="files"; filename="music.mp3"
 Content-Type: audio/mpeg
