@@ -23,6 +23,8 @@ Content-Disposition: form-data; name="files"; filename="music.mp3"
 Content-Type: audio/mpeg
 
 < music.mp3
---WebBoundary
+--WebBoundary--
 
 ### REST
+
+GET http://localhost:8080/events/getAll

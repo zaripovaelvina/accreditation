@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Person {
+public class PersonModel {
     private long id;
     private String name;
     private String surname;
@@ -15,8 +15,8 @@ public class Person {
     private long birthday;
     private String phone;
     private String email;
-    private int citizenshipId;
-    private int countryId;
+    private long citizenshipId;
+    private long countryId;
     private String gender;
     private boolean removed;
     private long created;

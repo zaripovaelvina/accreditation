@@ -1,5 +1,6 @@
 package project.manager;
 
+import jdk.jfr.ContentType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import project.dto.UploadSingleMediaResponseDTO;
@@ -9,11 +10,17 @@ import project.exception.UploadException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Map;
 import java.util.UUID;
 
 @Component
 public class MediaManager {
     private final Path path = Path.of("media");
+    private final Map<String, String> types = Map.of(
+            "image/jpeg", ".jpeg",
+            "image/jpg", ".jpg",
+            "image/png", ".png"
+    );
 
     public MediaManager() throws IOException {
         Files.createDirectories(path);
@@ -30,10 +37,11 @@ public class MediaManager {
     }
 
     private String getExtension(String contentType) {
-        if (contentType.equals("image/jpeg")) {
-            return ".jpg";
+        final String extension = types.get(contentType);
+        if (extension == null) {
+            throw new UnsupportedMediaException(contentType + "not allowed for upload");
         }
 
-        throw new UnsupportedMediaException();
+        return extension;
     }
 }
