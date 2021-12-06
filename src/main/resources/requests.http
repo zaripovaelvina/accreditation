@@ -27,4 +27,12 @@ Content-Type: audio/mpeg
 
 ### REST
 
-GET http://localhost:8080/events/getAll
+GET http://localhost:8080/person/getAll
+
+###
+
+GET http://localhost:8080/person/getAll?id=1
+
+###
+
+GET http://localhost:8080/person/getAll/1
