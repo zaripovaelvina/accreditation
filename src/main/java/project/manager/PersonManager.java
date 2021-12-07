@@ -1,12 +1,16 @@
 package project.manager;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
-import project.domain.PersonModel;
+import project.domain.PersonBasicModel;
+import project.domain.PersonFullModel;
 import project.dto.PersonGetAllResponseDTO;
 import project.dto.PersonGetByIdResponseDTO;
-import project.rowmapper.PersonRowMapper;
+import project.exception.PersonNotFoundException;
+import project.rowmapper.PersonBasicRowMapper;
+import project.rowmapper.PersonFullRowMapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,29 +20,28 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class PersonManager {
     private final NamedParameterJdbcTemplate template;
-    private final PersonRowMapper personRowMapper;
+    private final PersonBasicRowMapper personBasicRowMapper;
+    private final PersonFullRowMapper personFullRowMapper;
 
     public PersonGetAllResponseDTO getAll() {
-        final List<PersonModel> personLists = template.query(
+        final List<PersonBasicModel> personLists = template.query(
                 // language=PostgreSQL
                 """
-                        SELECT id, name, surname, patronymic, birthday, phone, email, citizenship_id, country_id, gender
+                        SELECT id, name, surname, phone, email, citizenship_id, country_id, gender
                         FROM person
                         WHERE removed = FALSE
                         ORDER BY id
                         LIMIT 500
                         """,
-                personRowMapper
+                personBasicRowMapper
         );
 
         final PersonGetAllResponseDTO responseDTO = new PersonGetAllResponseDTO(new ArrayList<>(personLists.size()));
-        for (PersonModel personList : personLists) {
+        for (PersonBasicModel personList : personLists) {
             responseDTO.getPersons().add(new PersonGetAllResponseDTO.Person(
                     personList.getId(),
                     personList.getName(),
                     personList.getSurname(),
-                    personList.getPatronymic(),
-                    personList.getBirthday(),
                     personList.getPhone(),
                     personList.getEmail(),
                     personList.getCitizenshipId(),
@@ -50,15 +53,16 @@ public class PersonManager {
     }
 
     public PersonGetByIdResponseDTO getById(long id) {
-        final PersonModel personList = (PersonModel) template.queryForObject(
-                // language=PostgreSQL
-                """
+        try {
+            final PersonFullModel personList = (PersonFullModel) template.queryForObject(
+                    // language=PostgreSQL
+                    """
                         SELECT id, name, surname, patronymic, birthday, phone, email, citizenship_id, country_id, gender
                         FROM person
                         WHERE id = :id AND removed = FALSE
                         """,
                 Map.of("id", id),
-                personRowMapper
+                personFullRowMapper
         );
 
         final PersonGetByIdResponseDTO responseDTO = new PersonGetByIdResponseDTO(new PersonGetByIdResponseDTO.Person(
@@ -72,8 +76,10 @@ public class PersonManager {
                 personList.getCitizenshipId(),
                 personList.getCountryId(),
                 personList.getGender()
-
         ));
         return responseDTO;
+        } catch (EmptyResultDataAccessException e) {
+            throw new PersonNotFoundException(e);
+        }
     }
 }

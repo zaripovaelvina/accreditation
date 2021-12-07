@@ -25,7 +25,7 @@ public class PersonController {
         return manager.getById(id);
     }
 
-    @RequestMapping("/getById{id}")
+    @RequestMapping("/getById/{id}")
     public PersonGetByIdResponseDTO getByIdFromPath(@PathVariable long id) {
         return manager.getById(id);
     }
