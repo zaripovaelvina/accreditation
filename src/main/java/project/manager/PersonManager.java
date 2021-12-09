@@ -153,6 +153,19 @@ public class PersonManager {
         }
     }
 
+    public void restoreById(long id) {
+        final int affected = template.update(
+                // language=PostgreSQL
+                """
+                        UPDATE person SET removed = FALSE WHERE id = :id
+                        """,
+                Map.of("id", id)
+        );
+        if (affected == 0) {
+            throw new PersonNotFoundException("person with id" + id + " restored");
+        }
+    }
+
     private PersonSaveResponseDTO update(PersonSaveRequestDTO requestDTO) {
         try {
             final PersonFullModel member = template.queryForObject(
@@ -203,4 +216,5 @@ public class PersonManager {
     private String getImage(String image) {
         return image == null ? defaultImage : image;
     }
+
 }

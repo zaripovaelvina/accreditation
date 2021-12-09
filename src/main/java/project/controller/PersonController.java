@@ -44,4 +44,13 @@ public class PersonController {
         manager.removeById(id);
     }
 
+    @PostMapping("/restoreById")
+    public void restoreByIdFromParam(@RequestParam long id) {
+        manager.restoreById(id);
+    }
+
+    @PostMapping("/restoreById/{id}")
+    public void restoreByIdFromPath(@PathVariable long id) {
+        manager.restoreById(id);
+    }
 }
