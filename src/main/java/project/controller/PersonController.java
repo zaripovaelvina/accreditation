@@ -30,9 +30,7 @@ public class PersonController {
     }
 
     @PostMapping("/save")
-    public PersonSaveResponseDTO save(@RequestBody PersonSaveRequestDTO requestDTO) {
-        return manager.save(requestDTO);
-    }
+    public PersonSaveResponseDTO save(@RequestBody PersonSaveRequestDTO requestDTO) { return manager.save(requestDTO); }
 
     @PostMapping("/removeById")
     public void removeByIdFromParam(@RequestParam long id) {
@@ -54,3 +52,4 @@ public class PersonController {
         manager.restoreById(id);
     }
 }
+

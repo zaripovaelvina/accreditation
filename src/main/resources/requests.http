@@ -90,3 +90,11 @@ POST http://localhost:8080/person/removeById?id=1
 ###
 
 POST http://localhost:8080/person/removeById/1
+
+###
+
+POST http://localhost:8080/person/restoreById?id=1
+
+###
+
+POST http://localhost:8080/person/restoreById/1
