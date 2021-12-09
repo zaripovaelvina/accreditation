@@ -6,38 +6,38 @@ CREATE TABLE citizenship -- таблица гражданство
 
 CREATE TABLE country -- таблица страны
 (
-    id     BIGSERIAL PRIMARY KEY,
-    name   TEXT NOT NULL,
-    status INT  NOT NULL DEFAULT 0
+    id   BIGSERIAL PRIMARY KEY,
+    name TEXT NOT NULL
 );
 
 CREATE TABLE organization -- таблица организаций
 (
-    id     BIGSERIAL PRIMARY KEY,
-    name   TEXT NOT NULL,
-    status INT  NOT NULL DEFAULT 0
+    id   BIGSERIAL PRIMARY KEY,
+    name TEXT NOT NULL
 );
 
 CREATE TABLE events -- мероприятия
 (
-    id     BIGSERIAL PRIMARY KEY,
-    name   TEXT NOT NULL,
-    status BOOLEAN DEFAULT FALSE
+    id        BIGSERIAL PRIMARY KEY,
+    name      TEXT NOT NULL,
+    image     TEXT NOT NULL,
+    completed BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE disciplines -- дисциплины
 (
-    id            BIGSERIAL PRIMARY KEY,
-    name          TEXT NOT NULL,
-    status        INT,
-    weapon_status INT  NOT NULL DEFAULT 0
+    id           BIGSERIAL PRIMARY KEY,
+    name         TEXT    NOT NULL,
+    weaponStatus INT     NOT NULL,
+    selected     BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE weapon -- таблица оружий
 (
-    id     BIGSERIAL PRIMARY KEY,
-    name   TEXT NOT NULL,
-    status INT  NOT NULL DEFAULT 0
+    id      BIGSERIAL PRIMARY KEY,
+    name    TEXT    NOT NULL,
+    image   TEXT    NOT NULL,
+    removed BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE person -- таблица участников
@@ -73,6 +73,5 @@ CREATE TABLE application -- таблица соответствий участн
     permit_date         timestamptz NOT NULL,
     permit_manufacturer TEXT        NOT NULL
 );
-
 
 
