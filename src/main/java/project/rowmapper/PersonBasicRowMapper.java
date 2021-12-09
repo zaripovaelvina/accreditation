@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @Component
-public class PersonBasicRowMapper<T> implements RowMapper<PersonBasicModel> {
+public class PersonBasicRowMapper implements RowMapper<PersonBasicModel> {
 
     @Override
     public PersonBasicModel mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -21,7 +21,8 @@ public class PersonBasicRowMapper<T> implements RowMapper<PersonBasicModel> {
                 rs.getString("email"),
                 rs.getLong("citizenshipId"),
                 rs.getLong("countryId"),
-                rs.getString("gender")
+                rs.getString("gender"),
+                rs.getString("image")
         );
     }
 }

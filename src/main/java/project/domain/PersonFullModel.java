@@ -18,6 +18,7 @@ public class PersonFullModel {
     private long citizenshipId;
     private long countryId;
     private String gender;
+    private String image;
     private boolean removed;
     private long created;
 }

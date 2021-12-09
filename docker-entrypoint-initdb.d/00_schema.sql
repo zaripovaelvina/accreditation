@@ -49,11 +49,12 @@ CREATE TABLE person -- таблица участников
     birthday       timestamptz NOT NULL,
     phone          TEXT        NOT NULL,
     email          TEXT        NOT NULL,
-    citizenship_id INT
+    citizenship_id BIGSERIAL
         CONSTRAINT person_citizenship_id_fk REFERENCES citizenship,
-    country_id     INT
+    country_id     BIGSERIAL
         CONSTRAINT person_country_id_fk REFERENCES country,
     gender         TEXT        NOT NULL,
+    image          TEXT        NOT NULL,
     removed        BOOLEAN     NOT NULL DEFAULT FALSE,
     created        timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
@@ -66,12 +67,11 @@ CREATE TABLE application -- таблица соответствий участн
     disciplines_id      BIGSERIAL,
     organization_id     BIGSERIAL,
     weapon_id           BIGSERIAL,
-    weapon_manufacturer TEXT NOT NULL,
-    permit_serial       TEXT NOT NULL,
-    permit_num          TEXT NOT NULL,
-    permit_date         DATE,
-    permit_manufacturer TEXT NOT NULL,
-    file                TEXT NOT NULL
+    weapon_manufacturer TEXT        NOT NULL,
+    permit_serial       TEXT        NOT NULL,
+    permit_num          TEXT        NOT NULL,
+    permit_date         timestamptz NOT NULL,
+    permit_manufacturer TEXT        NOT NULL
 );
 
 

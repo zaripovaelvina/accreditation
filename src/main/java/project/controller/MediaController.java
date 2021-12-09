@@ -13,7 +13,8 @@ public class MediaController {
     private final MediaManager manager;
 
     @RequestMapping("/multipart")
-    public UploadSingleMediaResponseDTO upload(@RequestPart MultipartFile file) {
-        return manager.save(file);
+    public UploadSingleMediaResponseDTO upload(@RequestPart MultipartFile image) {
+        return manager.save(image);
     }
+
 }

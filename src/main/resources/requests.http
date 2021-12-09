@@ -6,6 +6,10 @@ Content-Disposition: form-data; name="file"; filename="media.jpg"
 Content-Type: image/jpeg
 
 < media.jpg
+
+> {%
+client.global.set('mediaName', response.body.name);
+%}
 --WebBoundary
 
 ###
@@ -40,3 +44,49 @@ GET http://localhost:8080/person/getById/1
 ###
 
 GET http://localhost:8080/person/getById?id=999
+
+###
+
+POST http://localhost:8080/person/save
+Content-Type: application/json
+
+{
+  "id": 0,
+  "name": "Ivan",
+  "surname": "Ivanov",
+  "patronymic": "Ivanovich",
+  "birthday": "01.01.2001",
+  "phone": "89377777777",
+  "email": "email@mail.ru",
+  "citizenshipId": "1",
+  "countryId": "1",
+  "gender": "M",
+  "image": "0a85f333-c05b-47ec-96ec-238904c0a331.jpg"
+}
+
+###
+
+POST http://localhost:8080/person/save
+Content-Type: application/json
+
+{
+  "id": 0,
+  "name": "Ivan",
+  "surname": "Ivanov",
+  "patronymic": "Ivanovich",
+  "birthday": "01.01.2001",
+  "phone": "89377777777",
+  "email": "email@mail.ru",
+  "citizenshipId": "1",
+  "countryId": "1",
+  "gender": "M",
+  "image": "{{mediaName}}"
+}
+
+###
+
+POST http://localhost:8080/person/removeById?id=1
+
+###
+
+POST http://localhost:8080/person/removeById/1

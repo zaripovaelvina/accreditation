@@ -24,5 +24,6 @@ public class PersonGetByIdResponseDTO {
         private long citizenshipId;
         private long countryId;
         private String gender;
+        private String image;
     }
 }

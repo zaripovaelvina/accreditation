@@ -4,13 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class PersonGetAllResponseDTO {
-    private List<Person> persons;
+public class PersonSaveResponseDTO {
+    private Person person;
 
     @NoArgsConstructor
     @AllArgsConstructor
@@ -19,6 +17,8 @@ public class PersonGetAllResponseDTO {
         private long id;
         private String name;
         private String surname;
+        private String patronymic;
+        private long birthday;
         private String phone;
         private String email;
         private long citizenshipId;

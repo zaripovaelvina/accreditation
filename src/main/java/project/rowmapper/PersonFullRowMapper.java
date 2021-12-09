@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @Component
-public class PersonFullRowMapper<T> implements RowMapper<PersonFullModel> {
+public class PersonFullRowMapper implements RowMapper<PersonFullModel> {
 
     @Override
     public PersonFullModel mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -23,6 +23,7 @@ public class PersonFullRowMapper<T> implements RowMapper<PersonFullModel> {
                 rs.getLong("citizenshipId"),
                 rs.getLong("countryId"),
                 rs.getString("gender"),
+                rs.getString("image"),
                 rs.getBoolean("removed"),
                 rs.getLong("created")
         );

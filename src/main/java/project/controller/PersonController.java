@@ -1,12 +1,11 @@
 package project.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import project.dto.PersonGetAllResponseDTO;
 import project.dto.PersonGetByIdResponseDTO;
+import project.dto.PersonSaveRequestDTO;
+import project.dto.PersonSaveResponseDTO;
 import project.manager.PersonManager;
 
 @RestController
@@ -29,4 +28,20 @@ public class PersonController {
     public PersonGetByIdResponseDTO getByIdFromPath(@PathVariable long id) {
         return manager.getById(id);
     }
+
+    @PostMapping("/save")
+    public PersonSaveResponseDTO save(@RequestBody PersonSaveRequestDTO requestDTO) {
+        return manager.save(requestDTO);
+    }
+
+    @PostMapping("/removeById")
+    public void removeByIdFromParam(@RequestParam long id) {
+        manager.removeById(id);
+    }
+
+    @PostMapping("/removeById/{id}")
+    public void removeByIdFromPath(@PathVariable long id) {
+        manager.removeById(id);
+    }
+
 }
