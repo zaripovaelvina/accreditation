@@ -144,7 +144,7 @@ public class PersonManager {
         final int affected = template.update(
                 // language=PostgreSQL
                 """
-                        UPDATE person SET removed = FALSE WHERE id = :id
+                        UPDATE person SET removed = TRUE WHERE id = :id
                         """,
                 Map.of("id", id)
         );
