@@ -1,4 +1,4 @@
-package project.domain;
+package project.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,8 +7,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Weapon {
+public class WeaponSaveRequestDTO {
     private long id;
     private String name;
-    private int status;
+    private String image;
+
 }

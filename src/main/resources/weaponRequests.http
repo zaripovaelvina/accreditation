@@ -1,0 +1,87 @@
+POST http://localhost:8080/media/multipart
+Content-Type: multipart/form-data; boundary=WebBoundary
+
+--WebBoundary
+Content-Disposition: form-data; name="file"; filename="media.jpg"
+Content-Type: image/jpeg
+
+< media.jpg
+
+--WebBoundary
+
+###
+
+POST http://localhost:8080/media/multi-multipart
+Content-Type: multipart/form-data; boundary=WebBoundary
+
+--WebBoundary
+Content-Disposition: form-data; name="files"; filename="media.jpg"
+Content-Type: image/jpeg
+
+< media.jpg
+--WebBoundary
+Content-Disposition: form-data; name="files"; filename="music.mp3"
+Content-Type: audio/mpeg
+
+< music.mp3
+--WebBoundary--
+
+### REST
+
+GET http://localhost:8080/weapon/getAll
+
+###
+
+GET http://localhost:8080/weapon/getById?id=1
+
+###
+
+GET http://localhost:8080/weapon/getById/1
+
+###
+
+GET http://localhost:8080/weapon/getById?id=999
+
+###
+
+POST http://localhost:8080/weapon/save
+Content-Type: application/json
+
+{
+  "id": 0,
+  "name": "Макаров",
+  "image": "0a85f333-c05b-47ec-96ec-238904c0a331.jpg"
+}
+
+###
+
+POST http://localhost:8080/weapon/save
+Content-Type: application/json
+
+{
+  "id": 0,
+  "name": "Ivan",
+  "image": "{{mediaName}}"
+}
+
+###
+
+POST http://localhost:8080/weapon/removeById?id=1
+
+###
+
+POST http://localhost:8080/weapon/removeById/1
+
+###
+
+POST http://localhost:8080/weapon/restoreById?id=1
+
+###
+
+POST http://localhost:8080/weapon/restoreById/1
+
+###
+> {%
+client.global.set('mediaName', response.body.name);
+%}
+
