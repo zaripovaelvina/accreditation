@@ -13,15 +13,21 @@ VALUES (1, 'Организация РФ'),
 INSERT INTO disciplines (id, name, weaponStatus)
 VALUES (1, 'Шахматы', 0),
        (2, 'Стрельба из ружья', 1),
-       (3, 'Биатлон', 0);
+       (3, 'Большой теннис', 0),
+       (4, 'Биатлон', 1),
+       (5, 'Баскетбол', 0),
+       (6, 'Футбол', 0);
 
 INSERT INTO weapon (id, name, image)
 VALUES (1, 'Пистолет', 'noimage.png'),
-       (2, 'Ружье', 'noimage.png');
+       (2, 'Ружье', 'noimage.png'),
+       (3, 'Спортивная 5-разрядная винтовка Биатлон-7-2', 'noimage.png');
 
 INSERT INTO events (id, name, image)
 VALUES (1, 'Чемпионат мира по стрельбе', 'noimage.png'),
-       (2, 'Чемпионат мира по биатлону', 'noimage.png');
+       (2, 'Чемпионат мира по биатлону', 'noimage.png'),
+       (3, 'Чемпионат по практической стрельбе', 'noimage.png'),
+       (4, 'Чемпионат мира по футболу', 'noimage.png');
 
 INSERT INTO person (name, surname, patronymic, birthday, phone, email,
                     citizenship_id, country_id, gender, image, removed, created)
