@@ -71,7 +71,10 @@ CREATE TABLE application -- таблица соответствий участн
     permit_serial       TEXT        NOT NULL,
     permit_num          TEXT        NOT NULL,
     permit_date         timestamptz NOT NULL,
-    permit_manufacturer TEXT        NOT NULL
+    permit_manufacturer TEXT        NOT NULL,
+    image               TEXT        NOT NULL,
+    removed             BOOLEAN     NOT NULL DEFAULT FALSE,
+    created             timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 

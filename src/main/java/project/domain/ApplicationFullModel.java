@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Application {
+public class ApplicationFullModel {
     private long id;
     private long personId;
     private long eventId;
@@ -18,6 +18,9 @@ public class Application {
     private String permitSerial;
     private String permitNum;
     private long permitDate;
-    private long personDisciplinesId;
-    private String file;
+    private String permitManufacturer;
+    private String image;
+    private Boolean removed;
+    private long created;
 }
+
