@@ -7,8 +7,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Events {
+public class EventModel {
     private long id;
     private String name;
-    private boolean status;
+    private String image;
+    private boolean completed;
 }

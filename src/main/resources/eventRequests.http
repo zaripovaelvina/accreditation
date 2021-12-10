@@ -28,73 +28,57 @@ Content-Type: audio/mpeg
 
 ### REST
 
-GET http://localhost:8080/person/getAll
+GET http://localhost:8080/event/getAll
 
 ###
 
-GET http://localhost:8080/person/getById?id=1
+GET http://localhost:8080/event/getById?id=1
 
 ###
 
-GET http://localhost:8080/person/getById/1
+GET http://localhost:8080/event/getById/1
 
 ###
 
-GET http://localhost:8080/person/getById?id=999
+GET http://localhost:8080/event/getById?id=999
 
 ###
 
-POST http://localhost:8080/person/save
+POST http://localhost:8080/event/save
 Content-Type: application/json
 
 {
   "id": 0,
-  "name": "Ivan",
-  "surname": "Ivanov",
-  "patronymic": "Ivanovich",
-  "birthday": "01.01.2001",
-  "phone": "89377777777",
-  "email": "email@mail.ru",
-  "citizenshipId": "1",
-  "countryId": "1",
-  "gender": "M",
+  "name": "Happy New Year",
   "image": "0a85f333-c05b-47ec-96ec-238904c0a331.jpg"
 }
 
 ###
 
-POST http://localhost:8080/person/save
+POST http://localhost:8080/event/save
 Content-Type: application/json
 
 {
   "id": 0,
   "name": "Ivan",
-  "surname": "Ivanov",
-  "patronymic": "Ivanovich",
-  "birthday": "01.01.2001",
-  "phone": "89377777777",
-  "email": "email@mail.ru",
-  "citizenshipId": "1",
-  "countryId": "1",
-  "gender": "M",
   "image": "{{mediaName}}"
 }
 
 ###
 
-POST http://localhost:8080/person/removeById?id=1
+POST http://localhost:8080/event/removeById?id=1
 
 ###
 
-POST http://localhost:8080/person/removeById/1
+POST http://localhost:8080/event/removeById/1
 
 ###
 
-POST http://localhost:8080/person/restoreById?id=1
+POST http://localhost:8080/event/restoreById?id=1
 
 ###
 
-POST http://localhost:8080/person/restoreById/1
+POST http://localhost:8080/event/restoreById/1
 
 ###
 > {%

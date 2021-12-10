@@ -7,3 +7,5 @@ VALUES (1,'Чемпионат мира по стрельбе', 'FALSE');
 
 INSERT INTO person
 VALUES (1, 'Ф', 'И', 'О', to_date('10.10.2000', 'dd.mm.yyyy'), '12345678', 'test@mail.ru', '1', '1', 'M', FALSE);
+
+select * from person
