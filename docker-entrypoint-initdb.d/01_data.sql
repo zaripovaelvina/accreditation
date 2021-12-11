@@ -37,7 +37,7 @@ VALUES ('Ф', 'И', 'О', to_date('10.10.2000', 'dd.mm.yyyy'), '12345678', 'test
         '1', '1', 'W', 'noimage.png', FALSE, current_date);
 
 INSERT INTO application (person_id, event_id, disciplines_id, organization_id, weapon_id, weapon_manufacturer,
-                         permit_serial, permit_num, permit_date, permit_manufacturer, image, removed, created)
+                         permit_serial, permit_num, permit_date, permit_manufacturer, image)
 VALUES ('1', '3', '2', '1', '3', 'Калашников', 'AH', '678', to_date('10.03.2020', 'dd.mm.yyyy'), 'Производитель',
         'noimage.png');
 
