@@ -10,7 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 public class ApplicationGetAllResponseDTO {
-    private List<Applications> Application;
+    private List<Applications> applications;
 
     @NoArgsConstructor
     @AllArgsConstructor

@@ -6,10 +6,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 import project.domain.ApplicationBasicModel;
 import project.domain.ApplicationFullModel;
-import project.dto.ApplicationGetAllResponseDTO;
-import project.dto.ApplicationGetByIdResponseDTO;
-import project.dto.ApplicationSaveRequestDTO;
-import project.dto.ApplicationSaveResponseDTO;
+import project.dto.*;
 import project.exception.ApplicationNotFoundException;
 import project.rowmapper.ApplicationBasicRowMapper;
 import project.rowmapper.ApplicationFullRowMapper;
@@ -42,7 +39,7 @@ public class ApplicationManager {
 
         final ApplicationGetAllResponseDTO responseDTO = new ApplicationGetAllResponseDTO(new ArrayList<>(applicationLists.size()));
         for (ApplicationBasicModel applicationList : applicationLists) {
-            responseDTO.getApplication().add(new ApplicationGetAllResponseDTO.Applications(
+            responseDTO.getApplications().add(new ApplicationGetAllResponseDTO.Applications(
                     applicationList.getId(),
                     applicationList.getPersonId(),
                     applicationList.getEventId(),
@@ -233,4 +230,17 @@ public class ApplicationManager {
         return image == null ? defaultImage : image;
     }
 
+    public void checkStatus(long id) {
+        final int affected = template.update(
+                // language=PostgreSQL
+                """
+                        UPDATE application SET status = '1'
+                             WHERE id = :id AND removed = FALSE
+                             """,
+                Map.of("id", id)
+        );
+        if (affected == 0) {
+            throw new ApplicationNotFoundException("Application with id" + id + " not found");
+        }
+    }
 }

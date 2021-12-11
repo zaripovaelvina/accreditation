@@ -29,7 +29,8 @@ public class ApplicationController {
 
     @PostMapping("/save")
     public ApplicationSaveResponseDTO save(@RequestBody ApplicationSaveRequestDTO requestDTO) {
-        return manager.save(requestDTO); }
+        return manager.save(requestDTO);
+    }
 
     @PostMapping("/removeById")
     public void removeByIdFromParam(@RequestParam long id) {
@@ -50,5 +51,13 @@ public class ApplicationController {
     public void restoreByIdFromPath(@PathVariable long id) {
         manager.restoreById(id);
     }
+
+    @PostMapping("/checkStatus")
+    public void checkStatusParam(@RequestParam long id) {
+        manager.checkStatus(id);
+    }
+
+    @RequestMapping("/checkStatus/{id}")
+    public void checkStatusPath(@PathVariable long id) { manager.checkStatus(id); }
 }
 

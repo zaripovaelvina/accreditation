@@ -59,14 +59,19 @@ CREATE TABLE person -- таблица участников
     created        timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE application -- таблица соответствий участника с дисциплиной
+CREATE TABLE application -- заявка участника на мероприятие с разрешением
 (
     id                  BIGSERIAL PRIMARY KEY,
-    person_id           BIGSERIAL   CONSTRAINT application_person_id_fk REFERENCES person,
-    event_id            BIGSERIAL   CONSTRAINT application_event_id_fk REFERENCES events,
-    disciplines_id      BIGSERIAL   CONSTRAINT application_disciplines_id_fk REFERENCES disciplines,
-    organization_id     BIGSERIAL   CONSTRAINT application_organization_id_fk REFERENCES organization,
-    weapon_id           BIGSERIAL   CONSTRAINT application_weapon_id_fk REFERENCES weapon,
+    person_id           BIGSERIAL
+        CONSTRAINT application_person_id_fk REFERENCES person,
+    event_id            BIGSERIAL
+        CONSTRAINT application_event_id_fk REFERENCES events,
+    disciplines_id      BIGSERIAL
+        CONSTRAINT application_disciplines_id_fk REFERENCES disciplines,
+    organization_id     BIGSERIAL
+        CONSTRAINT application_organization_id_fk REFERENCES organization,
+    weapon_id           BIGSERIAL
+        CONSTRAINT application_weapon_id_fk REFERENCES weapon,
     weapon_manufacturer TEXT        NOT NULL,
     permit_serial       TEXT        NOT NULL,
     permit_num          TEXT        NOT NULL,
@@ -74,7 +79,8 @@ CREATE TABLE application -- таблица соответствий участн
     permit_manufacturer TEXT        NOT NULL,
     image               TEXT        NOT NULL,
     removed             BOOLEAN     NOT NULL DEFAULT FALSE,
-    created             timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP
+    created             timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    status              INT         NOT NULL DEFAULT 0
 );
 
 
