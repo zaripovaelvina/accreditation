@@ -82,7 +82,7 @@ public class EventManager {
                 // language=PostgreSQL
                 """
                         INSERT INTO events(name, image) VALUES (:name, :image)
-                        RETURNING name, image
+                        RETURNING id, name, image
                         """,
                 Map.of(
                         "name", requestDTO.getName(),
@@ -94,8 +94,7 @@ public class EventManager {
         final EventSaveResponseDTO responseDTO = new EventSaveResponseDTO(new EventSaveResponseDTO.Event(
                 eventOne.getId(),
                 eventOne.getName(),
-                eventOne.getImage(),
-                eventOne.isCompleted()
+                eventOne.getImage()
         ));
 
         return responseDTO;
@@ -134,7 +133,7 @@ public class EventManager {
                     """
                             UPDATE events SET name = :name, image = :image
                             WHERE id = :id AND completed = FALSE
-                            RETURNING name, image
+                            RETURNING id, name, image
                             """,
                     Map.of(
                             "name", requestDTO.getName(),
@@ -146,8 +145,7 @@ public class EventManager {
             final EventSaveResponseDTO responseDTO = new EventSaveResponseDTO(new EventSaveResponseDTO.Event(
                     eventOne.getId(),
                     eventOne.getName(),
-                    eventOne.getImage(),
-                    eventOne.isCompleted()
+                    eventOne.getImage()
             ));
 
             return responseDTO;

@@ -14,19 +14,17 @@ public class ApplicationFullRowMapper implements RowMapper<ApplicationFullModel>
     public ApplicationFullModel mapRow(ResultSet rs, int rowNum) throws SQLException {
         return new ApplicationFullModel(
                 rs.getLong("id"),
-                rs.getLong("personId"),
-                rs.getLong("eventId"),
-                rs.getLong("disciplinesId"),
-                rs.getLong("organizationId"),
-                rs.getLong("weaponId"),
-                rs.getString("weaponManufacturer"),
-                rs.getString("permitSerial"),
-                rs.getString("permitNum"),
-                rs.getLong("permitDate"),
-                rs.getString("permitManufacturer"),
-                rs.getString("image"),
-                rs.getBoolean("removed"),
-                rs.getLong("created")
+                rs.getLong("person_id"),
+                rs.getLong("event_id"),
+                rs.getLong("disciplines_id"),
+                rs.getLong("organization_id"),
+                rs.getLong("weapon_id"),
+                rs.getString("weapon_manufacturer"),
+                rs.getString("permit_serial"),
+                rs.getString("permit_num"),
+                rs.getLong("permit_date"),
+                rs.getString("permit_manufacturer"),
+                rs.getString("image")
         );
     }
 }

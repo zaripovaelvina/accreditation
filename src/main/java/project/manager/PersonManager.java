@@ -14,7 +14,6 @@ import project.exception.PersonNotFoundException;
 import project.rowmapper.PersonBasicRowMapper;
 import project.rowmapper.PersonFullRowMapper;
 
-import javax.script.ScriptEngine;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -62,8 +61,8 @@ public class PersonManager {
             final PersonFullModel member = template.queryForObject(
                     // language=PostgreSQL
                     """
-                            SELECT id, name, surname, patronymic, birthday, phone, email, citizenship_id, 
-                            country_id, gender, image
+                            SELECT id, name, surname, patronymic, EXTRACT(EPOCH FROM birthday) AS birthday, phone, 
+                            email, citizenship_id, country_id, gender, image
                             FROM person
                             WHERE id = :id AND removed = FALSE
                             """,
@@ -103,10 +102,11 @@ public class PersonManager {
                 // language=PostgreSQL
                 """
                         INSERT INTO person(name, surname, patronymic, birthday, phone, email, 
-                        citizenship_id, country_id, gender, image) VALUES (:name, :surname, :patronymic, :birthday, 
-                        :phone, :email, :citizenship_id, :country_id, :gender, :image)
-                        RETURNING name, surname, patronymic, birthday, phone, email, 
-                        citizenship_id, country_id, gender, image
+                                           citizenship_id, country_id, gender, image) 
+                        VALUES (:name, :surname, :patronymic, to_date(:birthday, 'dd.mm.yyyy'), :phone, :email, 
+                               :citizenship_id, :country_id, :gender, :image)
+                        RETURNING id, name, surname, patronymic, EXTRACT(EPOCH FROM birthday) AS birthday, phone, email, 
+                                  citizenship_id, country_id, gender, image
                         """,
                 Map.of(
                         "name", requestDTO.getName(),
@@ -175,7 +175,7 @@ public class PersonManager {
                             birthday = :birthday, phone = :phone, email = :email, citizenship_id = :citizenship_id,
                             country_id = :country_id, gender = :gender, image = :image
                             WHERE id = :id AND removed = FALSE
-                            RETURNING name, surname, patronymic, birthday, phone, email, 
+                            RETURNING id, name, surname, patronymic, birthday, phone, email, 
                             citizenship_id, country_id, gender, image
                             """,
                     Map.of(

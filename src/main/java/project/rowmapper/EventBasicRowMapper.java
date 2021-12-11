@@ -15,8 +15,7 @@ public class EventBasicRowMapper implements RowMapper<EventModel> {
         return new EventModel(
                 rs.getLong("id"),
                 rs.getString("name"),
-                rs.getString("image"),
-                rs.getBoolean("completed")
+                rs.getString("image")
         );
     }
 }

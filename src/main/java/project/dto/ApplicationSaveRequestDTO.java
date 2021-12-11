@@ -17,10 +17,9 @@ public class ApplicationSaveRequestDTO {
     private String weaponManufacturer;
     private String permitSerial;
     private String permitNum;
-    private long permitDate;
+    private String permitDate;
     private String permitManufacturer;
     private String image;
     private Boolean removed;
-    private long created;
-
+    private Long created;
 }

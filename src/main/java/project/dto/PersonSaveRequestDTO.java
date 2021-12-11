@@ -12,7 +12,7 @@ public class PersonSaveRequestDTO {
     private String name;
     private String surname;
     private String patronymic;
-    private long birthday;
+    private String birthday;
     private String phone;
     private String email;
     private long citizenshipId;

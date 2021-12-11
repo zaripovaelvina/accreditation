@@ -2,29 +2,16 @@ POST http://localhost:8080/media/multipart
 Content-Type: multipart/form-data; boundary=WebBoundary
 
 --WebBoundary
-Content-Disposition: form-data; name="file"; filename="media.jpg"
+Content-Disposition: form-data; name="image"; filename="media.jpg"
 Content-Type: image/jpeg
 
 < media.jpg
 
 --WebBoundary
 
-###
-
-POST http://localhost:8080/media/multi-multipart
-Content-Type: multipart/form-data; boundary=WebBoundary
-
---WebBoundary
-Content-Disposition: form-data; name="files"; filename="media.jpg"
-Content-Type: image/jpeg
-
-< media.jpg
---WebBoundary
-Content-Disposition: form-data; name="files"; filename="music.mp3"
-Content-Type: audio/mpeg
-
-< music.mp3
---WebBoundary--
+> {%
+client.global.set('mediaName', response.body.file);
+%}
 
 ### REST
 
@@ -32,11 +19,11 @@ GET http://localhost:8080/application/getAll
 
 ###
 
-GET http://localhost:8080/application/getById?id=1
+GET http://localhost:8080/application/getById?id=4
 
 ###
 
-GET http://localhost:8080/application/getById/1
+GET http://localhost:8080/application/getById/4
 
 ###
 
@@ -49,39 +36,35 @@ Content-Type: application/json
 
 {
   "id": 0,
-  "name": "Happy New Year",
-  "image": "0a85f333-c05b-47ec-96ec-238904c0a331.jpg"
-}
-
-###
-
-POST http://localhost:8080/application/save
-Content-Type: application/json
-
-{
-  "id": 0,
-  "name": "Ivan",
+  "personId": "1",
+  "eventId": "1",
+  "disciplinesId": "2",
+  "organizationId": "1",
+  "weaponId": "2",
+  "weaponManufacturer": "Калашников",
+  "permitSerial": "AK",
+  "permitNum": "8888888",
+  "permitDate": "02.03.2020",
+  "permitManufacturer": "Психодиспансер",
   "image": "{{mediaName}}"
-}
+ }
 
 ###
 
-POST http://localhost:8080/application/removeById?id=1
+POST http://localhost:8080/application/removeById?id=4
 
 ###
 
-POST http://localhost:8080/application/removeById/1
+POST http://localhost:8080/application/removeById/4
 
 ###
 
-POST http://localhost:8080/application/restoreById?id=1
+POST http://localhost:8080/application/restoreById?id=4
 
 ###
 
-POST http://localhost:8080/application/restoreById/1
+POST http://localhost:8080/application/restoreById/4
 
 ###
-> {%
-client.global.set('mediaName', response.body.name);
-%}
+
 

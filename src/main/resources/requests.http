@@ -2,29 +2,18 @@ POST http://localhost:8080/media/multipart
 Content-Type: multipart/form-data; boundary=WebBoundary
 
 --WebBoundary
-Content-Disposition: form-data; name="file"; filename="media.jpg"
+Content-Disposition: form-data; name="image"; filename="media.jpg"
 Content-Type: image/jpeg
 
 < media.jpg
 
 --WebBoundary
 
+> {%
+client.global.set('mediaName', response.body.file);
+%}
 ###
 
-POST http://localhost:8080/media/multi-multipart
-Content-Type: multipart/form-data; boundary=WebBoundary
-
---WebBoundary
-Content-Disposition: form-data; name="files"; filename="media.jpg"
-Content-Type: image/jpeg
-
-< media.jpg
---WebBoundary
-Content-Disposition: form-data; name="files"; filename="music.mp3"
-Content-Type: audio/mpeg
-
-< music.mp3
---WebBoundary--
 
 ### REST
 
@@ -32,34 +21,15 @@ GET http://localhost:8080/person/getAll
 
 ###
 
-GET http://localhost:8080/person/getById?id=1
+GET http://localhost:8080/person/getById?id=2
 
 ###
 
-GET http://localhost:8080/person/getById/1
+GET http://localhost:8080/person/getById/2
 
 ###
 
 GET http://localhost:8080/person/getById?id=999
-
-###
-
-POST http://localhost:8080/person/save
-Content-Type: application/json
-
-{
-  "id": 0,
-  "name": "Ivan",
-  "surname": "Ivanov",
-  "patronymic": "Ivanovich",
-  "birthday": "01.01.2001",
-  "phone": "89377777777",
-  "email": "email@mail.ru",
-  "citizenshipId": "1",
-  "countryId": "1",
-  "gender": "M",
-  "image": "0a85f333-c05b-47ec-96ec-238904c0a331.jpg"
-}
 
 ###
 
@@ -82,7 +52,7 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:8080/person/removeById?id=1
+POST http://localhost:8080/person/removeById?id=9
 
 ###
 
@@ -90,14 +60,11 @@ POST http://localhost:8080/person/removeById/1
 
 ###
 
-POST http://localhost:8080/person/restoreById?id=1
+POST http://localhost:8080/person/restoreById?id=9
 
 ###
 
 POST http://localhost:8080/person/restoreById/1
 
-###
-> {%
-client.global.set('mediaName', response.body.name);
-%}
+
 

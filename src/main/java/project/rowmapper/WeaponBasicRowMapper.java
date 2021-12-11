@@ -15,8 +15,7 @@ public class WeaponBasicRowMapper implements RowMapper<WeaponModel> {
         return new WeaponModel(
                 rs.getLong("id"),
                 rs.getString("name"),
-                rs.getString("image"),
-                rs.getBoolean("removed")
+                rs.getString("image")
         );
     }
 }

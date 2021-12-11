@@ -1,33 +1,33 @@
-INSERT INTO citizenship (id, name)
-VALUES (1, 'Гражданин РФ'),
-       (2, 'Иностранный гражданин');
+INSERT INTO citizenship (name)
+VALUES ('Гражданин РФ'),
+       ('Иностранный гражданин');
 
-INSERT INTO country (id, name)
-VALUES (1, 'Российская федерация'),
-       (2, 'Соединенные Штаты Америки');
+INSERT INTO country (name)
+VALUES ('Российская федерация'),
+       ('Соединенные Штаты Америки');
 
-INSERT INTO organization (id, name)
-VALUES (1, 'Организация РФ'),
-       (2, 'Иностранная организация');
+INSERT INTO organization (name)
+VALUES ('Организация РФ'),
+       ('Иностранная организация');
 
-INSERT INTO disciplines (id, name, weaponStatus)
-VALUES (1, 'Шахматы', 0),
-       (2, 'Стрельба из ружья', 1),
-       (3, 'Большой теннис', 0),
-       (4, 'Биатлон', 1),
-       (5, 'Баскетбол', 0),
-       (6, 'Футбол', 0);
+INSERT INTO disciplines (name, weaponStatus)
+VALUES ('Шахматы', 0),
+       ('Стрельба из ружья', 1),
+       ('Большой теннис', 0),
+       ('Биатлон', 1),
+       ('Баскетбол', 0),
+       ('Футбол', 0);
 
-INSERT INTO weapon (id, name, image)
-VALUES (1, 'Пистолет', 'noimage.png'),
-       (2, 'Ружье', 'noimage.png'),
-       (3, 'Спортивная 5-разрядная винтовка Биатлон-7-2', 'noimage.png');
+INSERT INTO weapon (name, image)
+VALUES ('Пистолет', 'noimage.png'),
+       ('Ружье', 'noimage.png'),
+       ('Спортивная 5-разрядная винтовка Биатлон-7-2', 'noimage.png');
 
-INSERT INTO events (id, name, image)
-VALUES (1, 'Чемпионат мира по стрельбе', 'noimage.png'),
-       (2, 'Чемпионат мира по биатлону', 'noimage.png'),
-       (3, 'Чемпионат по практической стрельбе', 'noimage.png'),
-       (4, 'Чемпионат мира по футболу', 'noimage.png');
+INSERT INTO events (name, image)
+VALUES ('Чемпионат мира по стрельбе', 'noimage.png'),
+       ('Чемпионат мира по биатлону', 'noimage.png'),
+       ('Чемпионат по практической стрельбе', 'noimage.png'),
+       ('Чемпионат мира по футболу', 'noimage.png');
 
 INSERT INTO person (name, surname, patronymic, birthday, phone, email,
                     citizenship_id, country_id, gender, image, removed, created)
@@ -35,5 +35,11 @@ VALUES ('Ф', 'И', 'О', to_date('10.10.2000', 'dd.mm.yyyy'), '12345678', 'test
         '1', '1', 'M', 'noimage.png', FALSE, current_date),
        ('A', 'A', 'A', to_date('08.08.2003', 'dd.mm.yyyy'), '12345678', 't@mail.ru',
         '1', '1', 'W', 'noimage.png', FALSE, current_date);
+
+INSERT INTO application (person_id, event_id, disciplines_id, organization_id, weapon_id, weapon_manufacturer,
+                         permit_serial, permit_num, permit_date, permit_manufacturer, image, removed, created)
+VALUES ('1', '3', '2', '1', '3', 'Калашников', 'AH', '678', to_date('10.03.2020', 'dd.mm.yyyy'), 'Производитель',
+        'noimage.png');
+
 
 

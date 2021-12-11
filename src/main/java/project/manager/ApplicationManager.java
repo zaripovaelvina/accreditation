@@ -31,7 +31,7 @@ public class ApplicationManager {
                 // language=PostgreSQL
                 """
                         SELECT id, person_id, event_id, disciplines_id, organization_id, weapon_id, weapon_manufacturer,
-                               permit_serial, permit_num, permit_date, permit_manufacturer, image
+                               permit_serial, permit_num, EXTRACT(EPOCH FROM permit_date) AS permit_date, permit_manufacturer, image
                         FROM application
                         WHERE removed = FALSE
                         ORDER BY id
@@ -66,9 +66,10 @@ public class ApplicationManager {
             final ApplicationFullModel applicationList = template.queryForObject(
                     // language=PostgreSQL
                     """
-                            SELECT id, person_id, event_id, disciplines_id, organization_id, weapon_id, weapon_manufacturer,
-                               permit_serial, permit_num, permit_date, permit_manufacturer, image, removed, created
-                            FROM Application
+                            SELECT id, person_id, event_id, disciplines_id, organization_id, weapon_id,
+                            weapon_manufacturer, permit_serial, permit_num, EXTRACT(EPOCH FROM permit_date) AS permit_date,
+                            permit_manufacturer, image                            
+                            FROM application
                             WHERE id = :id AND removed = FALSE
                             """,
                     Map.of("id", id),
@@ -88,9 +89,7 @@ public class ApplicationManager {
                             applicationList.getPermitNum(),
                             applicationList.getPermitDate(),
                             applicationList.getPermitManufacturer(),
-                            applicationList.getImage(),
-                            applicationList.getRemoved(),
-                            applicationList.getCreated()
+                            applicationList.getImage()
                     ));
             return responseDTO;
         } catch (EmptyResultDataAccessException e) {
@@ -109,15 +108,17 @@ public class ApplicationManager {
         final ApplicationFullModel applicationList = template.queryForObject(
                 // language=PostgreSQL
                 """
-                        INSERT INTO application (id, person_id, event_id, disciplines_id, organization_id, weapon_id, weapon_manufacturer,
-                               permit_serial, permit_num, permit_date, permit_manufacturer, image, removed, created) 
-                        VALUES (:id, :person_id, :event_id, :disciplines_id, :organization_id, :weapon_id, :weapon_manufacturer,
-                               :permit_serial, :permit_num, :permit_date, :permit_manufacturer, :image, :removed, :created)
+                        INSERT INTO application (person_id, event_id, disciplines_id, organization_id, weapon_id, 
+                                                weapon_manufacturer, permit_serial, permit_num, permit_date, 
+                                                permit_manufacturer, image) 
+                        VALUES (:person_id, :event_id, :disciplines_id, :organization_id, :weapon_id, 
+                               :weapon_manufacturer, :permit_serial, :permit_num, to_date(:permit_date, 'dd.mm.yyyy'),
+                               :permit_manufacturer, :image)
                         RETURNING id, person_id, event_id, disciplines_id, organization_id, weapon_id, weapon_manufacturer,
-                               permit_serial, permit_num, permit_date, permit_manufacturer, image, removed, created
+                               permit_serial, permit_num, EXTRACT(EPOCH FROM permit_date) AS permit_date, 
+                               permit_manufacturer, image
                             """,
                 Map.ofEntries(
-                        Map.entry("id", requestDTO.getId()),
                         Map.entry("person_id", requestDTO.getPersonId()),
                         Map.entry("event_id", requestDTO.getEventId()),
                         Map.entry("disciplines_id", requestDTO.getDisciplinesId()),
@@ -128,9 +129,7 @@ public class ApplicationManager {
                         Map.entry("permit_num", requestDTO.getPermitNum()),
                         Map.entry("permit_date", requestDTO.getPermitDate()),
                         Map.entry("permit_manufacturer", requestDTO.getPermitManufacturer()),
-                        Map.entry("image", requestDTO.getImage()),
-                        Map.entry("removed", requestDTO.getRemoved()),
-                        Map.entry("created", requestDTO.getCreated())
+                        Map.entry("image", requestDTO.getImage())
                 ),
                 ApplicationFullRowMapper
         );
@@ -147,9 +146,7 @@ public class ApplicationManager {
                 applicationList.getPermitNum(),
                 applicationList.getPermitDate(),
                 applicationList.getPermitManufacturer(),
-                applicationList.getImage(),
-                applicationList.getRemoved(),
-                applicationList.getCreated()
+                applicationList.getImage()
         ));
 
         return responseDTO;
@@ -186,12 +183,14 @@ public class ApplicationManager {
             final ApplicationFullModel applicationList = template.queryForObject(
                     // language=PostgreSQL
                     """
-                            UPDATE application SET person_id = :person_id, event_id = :event_id, disciplines_id = :disciplines_id, 
-                            organization_id = :organization_id, weapon_id = :weapon_id, weapon_manufacturer = :weapon_manufacturer, permit_serial = :permit_serial,
-                            permit_num = :permit_num, permit_date = :permit_date, permit_manufacturer =:permit_manufacturer, image = :image
+                            UPDATE application SET person_id = :person_id, event_id = :event_id, 
+                            disciplines_id = :disciplines_id, organization_id = :organization_id, 
+                            weapon_id = :weapon_id, weapon_manufacturer = :weapon_manufacturer, 
+                            permit_serial = :permit_serial, permit_num = :permit_num, permit_date = :permit_date, 
+                            permit_manufacturer =:permit_manufacturer, image = :image
                             WHERE id = :id AND removed = FALSE
-                            RETURNING person_id, event_id, disciplines_id, organization_id, weapon_id, weapon_manufacturer, 
-                            permit_serial, permit_num, permit_date, permit_manufacturer, image
+                            RETURNING person_id, event_id, disciplines_id, organization_id, weapon_id,
+                            weapon_manufacturer, permit_serial, permit_num, permit_date, permit_manufacturer, image
                             """,
                     Map.of(
                             "person_id", requestDTO.getPersonId(),
@@ -221,9 +220,7 @@ public class ApplicationManager {
                             applicationList.getPermitNum(),
                             applicationList.getPermitDate(),
                             applicationList.getPermitManufacturer(),
-                            applicationList.getImage(),
-                            applicationList.getRemoved(),
-                            applicationList.getCreated()
+                            applicationList.getImage()
                     ));
 
             return responseDTO;

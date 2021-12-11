@@ -26,7 +26,5 @@ public class ApplicationSaveResponseDTO {
         private long permitDate;
         private String permitManufacturer;
         private String image;
-        private Boolean removed;
-        private long created;
     }
 }

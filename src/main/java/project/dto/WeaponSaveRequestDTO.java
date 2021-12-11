@@ -11,5 +11,4 @@ public class WeaponSaveRequestDTO {
     private long id;
     private String name;
     private String image;
-
 }

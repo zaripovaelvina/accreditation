@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 public class EventSaveRequestDTO {
     private long id;
     private String name;
-    private boolean completed;
     private String image;
-
+    private boolean completed;
 }

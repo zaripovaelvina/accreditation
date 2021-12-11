@@ -11,5 +11,4 @@ public class WeaponModel {
     private long id;
     private String name;
     private String image;
-    private boolean removed;
 }

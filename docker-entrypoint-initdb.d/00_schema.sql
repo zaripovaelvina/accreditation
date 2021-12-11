@@ -62,11 +62,11 @@ CREATE TABLE person -- таблица участников
 CREATE TABLE application -- таблица соответствий участника с дисциплиной
 (
     id                  BIGSERIAL PRIMARY KEY,
-    person_id           BIGSERIAL,
-    event_id            BIGSERIAL,
-    disciplines_id      BIGSERIAL,
-    organization_id     BIGSERIAL,
-    weapon_id           BIGSERIAL,
+    person_id           BIGSERIAL   CONSTRAINT application_person_id_fk REFERENCES person,
+    event_id            BIGSERIAL   CONSTRAINT application_event_id_fk REFERENCES events,
+    disciplines_id      BIGSERIAL   CONSTRAINT application_disciplines_id_fk REFERENCES disciplines,
+    organization_id     BIGSERIAL   CONSTRAINT application_organization_id_fk REFERENCES organization,
+    weapon_id           BIGSERIAL   CONSTRAINT application_weapon_id_fk REFERENCES weapon,
     weapon_manufacturer TEXT        NOT NULL,
     permit_serial       TEXT        NOT NULL,
     permit_num          TEXT        NOT NULL,

@@ -20,12 +20,10 @@ public class PersonFullRowMapper implements RowMapper<PersonFullModel> {
                 rs.getLong("birthday"),
                 rs.getString("phone"),
                 rs.getString("email"),
-                rs.getLong("citizenshipId"),
-                rs.getLong("countryId"),
+                rs.getLong("citizenship_id"),
+                rs.getLong("country_id"),
                 rs.getString("gender"),
-                rs.getString("image"),
-                rs.getBoolean("removed"),
-                rs.getLong("created")
+                rs.getString("image")
         );
     }
 }

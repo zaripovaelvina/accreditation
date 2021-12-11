@@ -81,7 +81,7 @@ public class WeaponManager {
                 // language=PostgreSQL
                 """
                         INSERT INTO weapon(name, image) VALUES (:name, :image)
-                        RETURNING name, image
+                        RETURNING id, name, image
                         """,
                 Map.of(
                         "name", requestDTO.getName(),
@@ -133,7 +133,7 @@ public class WeaponManager {
                     """
                             UPDATE weapon SET name = :name, image = :image
                             WHERE id = :id AND removed = FALSE
-                            RETURNING name, image
+                            RETURNING id, name, image
                             """,
                     Map.of(
                             "name", requestDTO.getName(),
