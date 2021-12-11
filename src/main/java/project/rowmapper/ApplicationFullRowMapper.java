@@ -3,7 +3,6 @@ package project.rowmapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 import project.domain.ApplicationFullModel;
-import project.domain.EventModel;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

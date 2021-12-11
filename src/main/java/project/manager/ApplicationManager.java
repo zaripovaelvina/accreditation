@@ -109,33 +109,33 @@ public class ApplicationManager {
         final ApplicationFullModel applicationList = template.queryForObject(
                 // language=PostgreSQL
                 """
-                    INSERT INTO application (id, person_id, event_id, disciplines_id, organization_id, weapon_id, weapon_manufacturer,
-                           permit_serial, permit_num, permit_date, permit_manufacturer, image, removed, created) 
-                    VALUES (:id, :person_id, :event_id, :disciplines_id, :organization_id, :weapon_id, :weapon_manufacturer,
-                           :permit_serial, :permit_num, :permit_date, :permit_manufacturer, :image, :removed, :created)
-                    RETURNING id, person_id, event_id, disciplines_id, organization_id, weapon_id, weapon_manufacturer,
-                           permit_serial, permit_num, permit_date, permit_manufacturer, image, removed, created
-                        """,
-                Map.of(
-                        "id", requestDTO.getId(),
-                        "person_id", requestDTO.getPersonId(),
-                        "event_id", requestDTO.getEventId(),
-                        "disciplines_id", requestDTO.getDisciplinesId(),
-                        "organization_id", requestDTO.getOrganizationId(),
-                        "weapon_id", requestDTO.getWeaponId(),
-                        "weapon_manufacturer", requestDTO.getWeaponManufacturer(),
-                        "permit_serial", requestDTO.getPermitSerial(),
-                        "permit_num", requestDTO.getPermitNum(),
-                        "permit_date", requestDTO.getPermitDate(),
-                        "permit_manufacturer", requestDTO.getPermitManufacturer(),
-                        "image", getImage(requestDTO.getImage()),
-                        "removed", requestDTO.getRemoved(),
-                        "created", requestDTO.getCreated()
+                        INSERT INTO application (id, person_id, event_id, disciplines_id, organization_id, weapon_id, weapon_manufacturer,
+                               permit_serial, permit_num, permit_date, permit_manufacturer, image, removed, created) 
+                        VALUES (:id, :person_id, :event_id, :disciplines_id, :organization_id, :weapon_id, :weapon_manufacturer,
+                               :permit_serial, :permit_num, :permit_date, :permit_manufacturer, :image, :removed, :created)
+                        RETURNING id, person_id, event_id, disciplines_id, organization_id, weapon_id, weapon_manufacturer,
+                               permit_serial, permit_num, permit_date, permit_manufacturer, image, removed, created
+                            """,
+                Map.ofEntries(
+                        Map.entry("id", requestDTO.getId()),
+                        Map.entry("person_id", requestDTO.getPersonId()),
+                        Map.entry("event_id", requestDTO.getEventId()),
+                        Map.entry("disciplines_id", requestDTO.getDisciplinesId()),
+                        Map.entry("organization_id", requestDTO.getOrganizationId()),
+                        Map.entry("weapon_id", requestDTO.getWeaponId()),
+                        Map.entry("weapon_manufacturer", requestDTO.getWeaponManufacturer()),
+                        Map.entry("permit_serial", requestDTO.getPermitSerial()),
+                        Map.entry("permit_num", requestDTO.getPermitNum()),
+                        Map.entry("permit_date", requestDTO.getPermitDate()),
+                        Map.entry("permit_manufacturer", requestDTO.getPermitManufacturer()),
+                        Map.entry("image", requestDTO.getImage()),
+                        Map.entry("removed", requestDTO.getRemoved()),
+                        Map.entry("created", requestDTO.getCreated())
                 ),
                 ApplicationFullRowMapper
         );
 
-        final ApplicationSaveResponseDTO responseDTO = new ApplicationSaveResponseDTO(new ApplicationSaveResponseDTO.Application(
+        final ApplicationSaveResponseDTO responseDTO = new ApplicationSaveResponseDTO(new ApplicationSaveResponseDTO.Applications(
                 applicationList.getId(),
                 applicationList.getPersonId(),
                 applicationList.getEventId(),
@@ -144,9 +144,12 @@ public class ApplicationManager {
                 applicationList.getWeaponId(),
                 applicationList.getWeaponManufacturer(),
                 applicationList.getPermitSerial(),
+                applicationList.getPermitNum(),
                 applicationList.getPermitDate(),
                 applicationList.getPermitManufacturer(),
-                applicationList.getImage()
+                applicationList.getImage(),
+                applicationList.getRemoved(),
+                applicationList.getCreated()
         ));
 
         return responseDTO;
@@ -205,19 +208,23 @@ public class ApplicationManager {
                     ApplicationFullRowMapper
             );
 
-            final ApplicationSaveResponseDTO responseDTO = new ApplicationSaveResponseDTO(new ApplicationSaveResponseDTO.Application(
-                    applicationList.getId(),
-                    applicationList.getPersonId(),
-                    applicationList.getEventId(),
-                    applicationList.getDisciplinesId(),
-                    applicationList.getOrganizationId(),
-                    applicationList.getWeaponId(),
-                    applicationList.getWeaponManufacturer(),
-                    applicationList.getPermitSerial(),
-                    applicationList.getPermitDate(),
-                    applicationList.getPermitManufacturer(),
-                    applicationList.getImage()
-            ));
+            final ApplicationSaveResponseDTO responseDTO = new ApplicationSaveResponseDTO(
+                    new ApplicationSaveResponseDTO.Applications(
+                            applicationList.getId(),
+                            applicationList.getPersonId(),
+                            applicationList.getEventId(),
+                            applicationList.getDisciplinesId(),
+                            applicationList.getOrganizationId(),
+                            applicationList.getWeaponId(),
+                            applicationList.getWeaponManufacturer(),
+                            applicationList.getPermitSerial(),
+                            applicationList.getPermitNum(),
+                            applicationList.getPermitDate(),
+                            applicationList.getPermitManufacturer(),
+                            applicationList.getImage(),
+                            applicationList.getRemoved(),
+                            applicationList.getCreated()
+                    ));
 
             return responseDTO;
         } catch (EmptyResultDataAccessException e) {
