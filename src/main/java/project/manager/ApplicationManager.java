@@ -3,14 +3,18 @@ package project.manager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 import project.domain.ApplicationBasicModel;
 import project.domain.ApplicationFullModel;
+import project.domain.PersonBasicModel;
 import project.dto.*;
 import project.exception.ApplicationNotFoundException;
 import project.rowmapper.ApplicationBasicRowMapper;
 import project.rowmapper.ApplicationFullRowMapper;
 
+import javax.mail.internet.MimeMessage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +25,7 @@ public class ApplicationManager {
     private final NamedParameterJdbcTemplate template;
     private final ApplicationBasicRowMapper ApplicationBasicRowMapper;
     private final ApplicationFullRowMapper ApplicationFullRowMapper;
+    private final JavaMailSender mailSender;
     private final String defaultImage = "noimage.png";
 
     public ApplicationGetAllResponseDTO getAll() {
@@ -230,16 +235,40 @@ public class ApplicationManager {
         return image == null ? defaultImage : image;
     }
 
-    public void checkStatus(long id) {
-        final int affected = template.update(
-                // language=PostgreSQL
-                """
-                        UPDATE application SET status = '1'
-                             WHERE id = :id AND removed = FALSE
-                             """,
-                Map.of("id", id)
-        );
-        if (affected == 0) {
+    public void changeStatus(long id, int status) {
+
+
+        try {
+            final long personId = template.queryForObject(
+                    // language=PostgreSQL
+                    """
+                            UPDATE application SET status = :status
+                                 WHERE id = :id AND removed = FALSE
+                                 RETURNING person_id
+                                 """,
+                    Map.of("id", id, "status", status),
+                    Long.class
+            );
+
+            final String personEmail = template.queryForObject(
+                    // language=PostgreSQL
+                    """
+                           SELECT email FROM person 
+                           WHERE person_id =  
+                           RETURNING id, email
+                           """,
+                    Map.of("id", id, "email", email)
+            );
+
+            final SimpleMailMessage message = new SimpleMailMessage();
+
+            message.setFrom("..."); // логин
+            message.setTo(PersonBasicModel.getEmail());
+            message.setSubject("Theme");
+            message.setText("body"); // text
+
+            mailSender.send(message);
+        } catch (EmptyResultDataAccessException e) {
             throw new ApplicationNotFoundException("Application with id" + id + " not found");
         }
     }

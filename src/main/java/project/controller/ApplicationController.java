@@ -1,10 +1,10 @@
 package project.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.naming.factory.SendMailFactory;
 import org.springframework.web.bind.annotation.*;
 import project.dto.*;
 import project.manager.ApplicationManager;
-import project.manager.PersonManager;
 
 @RestController
 @RequestMapping("/application")
@@ -29,8 +29,7 @@ public class ApplicationController {
 
     @PostMapping("/save")
     public ApplicationSaveResponseDTO save(@RequestBody ApplicationSaveRequestDTO requestDTO) {
-        return manager.save(requestDTO);
-    }
+        return manager.save(requestDTO); }
 
     @PostMapping("/removeById")
     public void removeByIdFromParam(@RequestParam long id) {
@@ -52,12 +51,13 @@ public class ApplicationController {
         manager.restoreById(id);
     }
 
-    @PostMapping("/checkStatus")
-    public void checkStatusParam(@RequestParam long id) {
-        manager.checkStatus(id);
+    @PostMapping("/changeStatus")
+    public void changeStatusParam(@RequestParam long id, @RequestParam int status) {
+        manager.changeStatus(id, status);
     }
 
-    @RequestMapping("/checkStatus/{id}")
-    public void checkStatusPath(@PathVariable long id) { manager.checkStatus(id); }
+    @RequestMapping("/changeStatus/{id}")
+    public void changeStatusPath(@PathVariable long id, @PathVariable int status) {
+        manager.changeStatus(id, status); }
 }
 

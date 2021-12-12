@@ -71,6 +71,7 @@ POST http://localhost:8080/application/checkStatus/2
 
 ###
 
-POST http://localhost:8080/application/checkStatus?id=2
+POST http://localhost:8080/application/changeStatus?id=2&status=1
 
 ###
+
