@@ -36,7 +36,7 @@ public class ApplicationManager {
                 """
                         SELECT id, person_id, event_id, disciplines_id, organization_id, weapon_id, weapon_manufacturer,
                                permit_serial, permit_num, EXTRACT(EPOCH FROM permit_date) AS permit_date, permit_manufacturer, image
-                        FROM application
+                        FROM applications
                         WHERE removed = FALSE
                         ORDER BY id
                         LIMIT 500
@@ -73,7 +73,7 @@ public class ApplicationManager {
                             SELECT id, person_id, event_id, disciplines_id, organization_id, weapon_id,
                             weapon_manufacturer, permit_serial, permit_num, EXTRACT(EPOCH FROM permit_date) AS permit_date,
                             permit_manufacturer, image                            
-                            FROM application
+                            FROM applications
                             WHERE id = :id AND removed = FALSE
                             """,
                     Map.of("id", id),
@@ -112,7 +112,7 @@ public class ApplicationManager {
         final ApplicationFullModel applicationList = template.queryForObject(
                 // language=PostgreSQL
                 """
-                        INSERT INTO application (person_id, event_id, disciplines_id, organization_id, weapon_id, 
+                        INSERT INTO applications (person_id, event_id, disciplines_id, organization_id, weapon_id, 
                                                 weapon_manufacturer, permit_serial, permit_num, permit_date, 
                                                 permit_manufacturer, image) 
                         VALUES (:person_id, :event_id, :disciplines_id, :organization_id, :weapon_id, 
@@ -160,7 +160,7 @@ public class ApplicationManager {
         final int affected = template.update(
                 // language=PostgreSQL
                 """
-                        UPDATE application SET removed = TRUE WHERE id = :id
+                        UPDATE applications SET removed = TRUE WHERE id = :id
                         """,
                 Map.of("id", id)
         );
@@ -173,7 +173,7 @@ public class ApplicationManager {
         final int affected = template.update(
                 // language=PostgreSQL
                 """
-                        UPDATE Application SET removed = FALSE WHERE id = :id
+                        UPDATE applications SET removed = FALSE WHERE id = :id
                         """,
                 Map.of("id", id)
         );
@@ -187,7 +187,7 @@ public class ApplicationManager {
             final ApplicationFullModel applicationList = template.queryForObject(
                     // language=PostgreSQL
                     """
-                            UPDATE application SET person_id = :person_id, event_id = :event_id, 
+                            UPDATE applications SET person_id = :person_id, event_id = :event_id, 
                             disciplines_id = :disciplines_id, organization_id = :organization_id, 
                             weapon_id = :weapon_id, weapon_manufacturer = :weapon_manufacturer, 
                             permit_serial = :permit_serial, permit_num = :permit_num, permit_date = :permit_date, 
@@ -245,7 +245,7 @@ public class ApplicationManager {
             final long personId = template.queryForObject(
                     // language=PostgreSQL
                     """
-                            UPDATE application SET status = :status
+                            UPDATE applications SET status = :status
                                  WHERE id = :id AND removed = FALSE
                                  RETURNING person_id
                                  """,

@@ -31,7 +31,7 @@ public class PersonManager {
                 // language=PostgreSQL
                 """
                         SELECT id, name, surname, phone, email, citizenship_id, country_id, gender, image
-                        FROM person
+                        FROM persons
                         WHERE removed = FALSE
                         ORDER BY id
                         LIMIT 500
@@ -63,7 +63,7 @@ public class PersonManager {
                     """
                             SELECT id, name, surname, patronymic, EXTRACT(EPOCH FROM birthday) AS birthday, phone, 
                             email, citizenship_id, country_id, gender, image
-                            FROM person
+                            FROM persons
                             WHERE id = :id AND removed = FALSE
                             """,
                     Map.of("id", id),
@@ -101,7 +101,7 @@ public class PersonManager {
         final PersonFullModel member = template.queryForObject(
                 // language=PostgreSQL
                 """
-                        INSERT INTO person(name, surname, patronymic, birthday, phone, email, 
+                        INSERT INTO persons (name, surname, patronymic, birthday, phone, email, 
                                            citizenship_id, country_id, gender, image) 
                         VALUES (:name, :surname, :patronymic, to_date(:birthday, 'dd.mm.yyyy'), :phone, :email, 
                                :citizenship_id, :country_id, :gender, :image)
@@ -144,7 +144,7 @@ public class PersonManager {
         final int affected = template.update(
                 // language=PostgreSQL
                 """
-                        UPDATE person SET removed = TRUE WHERE id = :id
+                        UPDATE persons SET removed = TRUE WHERE id = :id
                         """,
                 Map.of("id", id)
         );
@@ -157,7 +157,7 @@ public class PersonManager {
         final int affected = template.update(
                 // language=PostgreSQL
                 """
-                        UPDATE person SET removed = FALSE WHERE id = :id
+                        UPDATE persons SET removed = FALSE WHERE id = :id
                         """,
                 Map.of("id", id)
         );
@@ -171,7 +171,7 @@ public class PersonManager {
             final PersonFullModel member = template.queryForObject(
                     // language=PostgreSQL
                     """
-                            UPDATE person SET name = :name, surname = :surname, patronymic = :patronymic, 
+                            UPDATE persons SET name = :name, surname = :surname, patronymic = :patronymic, 
                             birthday = :birthday, phone = :phone, email = :email, citizenship_id = :citizenship_id,
                             country_id = :country_id, gender = :gender, image = :image
                             WHERE id = :id AND removed = FALSE
@@ -222,7 +222,7 @@ public class PersonManager {
             final String personEmail = template.queryForObject(
                     // language=PostgreSQL
                     """
-                            SELECT p.email FROM person p, application a
+                            SELECT p.email FROM persons p, applications a
                             WHERE p.id = a.person_id AND a.status = :status and  p.id = :id
                             """,
                     Map.of("id", id, "status", status),

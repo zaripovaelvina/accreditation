@@ -26,7 +26,7 @@ public class WeaponManager {
         final List<WeaponModel> weaponLists = template.query(
                 // language=PostgreSQL
                 """
-                        SELECT id, name, image FROM weapon
+                        SELECT id, name, image FROM weapons
                         WHERE removed = FALSE
                         ORDER BY id
                         LIMIT 500
@@ -50,7 +50,7 @@ public class WeaponManager {
             final WeaponModel weaponOne = template.queryForObject(
                     // language=PostgreSQL
                     """
-                            SELECT id, name, image FROM weapon
+                            SELECT id, name, image FROM weapons
                             WHERE id = :id AND removed = FALSE
                             """,
                     Map.of("id", id),
@@ -80,7 +80,7 @@ public class WeaponManager {
         final WeaponModel weaponOne = template.queryForObject(
                 // language=PostgreSQL
                 """
-                        INSERT INTO weapon(name, image) VALUES (:name, :image)
+                        INSERT INTO weapons (name, image) VALUES (:name, :image)
                         RETURNING id, name, image
                         """,
                 Map.of(
@@ -104,7 +104,7 @@ public class WeaponManager {
         final int affected = template.update(
                 // language=PostgreSQL
                 """
-                        UPDATE weapon SET removed = TRUE WHERE id = :id
+                        UPDATE weapons SET removed = TRUE WHERE id = :id
                         """,
                 Map.of("id", id)
         );
@@ -117,7 +117,7 @@ public class WeaponManager {
         final int affected = template.update(
                 // language=PostgreSQL
                 """
-                        UPDATE weapon SET removed = FALSE WHERE id = :id
+                        UPDATE weapons SET removed = FALSE WHERE id = :id
                         """,
                 Map.of("id", id)
         );
@@ -131,7 +131,7 @@ public class WeaponManager {
             final WeaponModel weaponOne = template.queryForObject(
                     // language=PostgreSQL
                     """
-                            UPDATE weapon SET name = :name, image = :image
+                            UPDATE weapons SET name = :name, image = :image
                             WHERE id = :id AND removed = FALSE
                             RETURNING id, name, image
                             """,

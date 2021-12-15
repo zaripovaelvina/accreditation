@@ -68,7 +68,7 @@ POST http://localhost:8080/person/restoreById/1
 
 ###
 
-POST http://localhost:8080/person/sandMailById?id=10&status=0
+POST http://localhost:8080/person/sandMailByStatus?id=2&status=1
 
 
 

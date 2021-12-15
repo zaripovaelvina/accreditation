@@ -4,13 +4,13 @@ CREATE TABLE citizenship -- таблица гражданство
     name TEXT NOT NULL
 );
 
-CREATE TABLE country -- таблица страны
+CREATE TABLE countries -- таблица страны
 (
     id   BIGSERIAL PRIMARY KEY,
     name TEXT NOT NULL
 );
 
-CREATE TABLE organization -- таблица организаций
+CREATE TABLE organizations -- таблица организаций
 (
     id   BIGSERIAL PRIMARY KEY,
     name TEXT NOT NULL
@@ -32,7 +32,7 @@ CREATE TABLE disciplines -- дисциплины
     selected     BOOLEAN NOT NULL DEFAULT FALSE
 );
 
-CREATE TABLE weapon -- таблица оружий
+CREATE TABLE weapons -- таблица оружий
 (
     id      BIGSERIAL PRIMARY KEY,
     name    TEXT    NOT NULL,
@@ -40,7 +40,7 @@ CREATE TABLE weapon -- таблица оружий
     removed BOOLEAN NOT NULL DEFAULT FALSE
 );
 
-CREATE TABLE person -- таблица участников
+CREATE TABLE persons -- таблица участников
 (
     id             BIGSERIAL PRIMARY KEY,
     name           TEXT        NOT NULL,
@@ -50,28 +50,28 @@ CREATE TABLE person -- таблица участников
     phone          TEXT        NOT NULL,
     email          TEXT        NOT NULL,
     citizenship_id BIGSERIAL
-        CONSTRAINT person_citizenship_id_fk REFERENCES citizenship,
+        CONSTRAINT persons_citizenship_id_fk REFERENCES citizenship,
     country_id     BIGSERIAL
-        CONSTRAINT person_country_id_fk REFERENCES country,
+        CONSTRAINT persons_countries_id_fk REFERENCES countries,
     gender         TEXT        NOT NULL,
     image          TEXT        NOT NULL,
     removed        BOOLEAN     NOT NULL DEFAULT FALSE,
     created        timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE application -- заявка участника на мероприятие с разрешением
+CREATE TABLE applications -- заявка участника на мероприятие с разрешением
 (
     id                  BIGSERIAL PRIMARY KEY,
     person_id           BIGSERIAL
-        CONSTRAINT application_person_id_fk REFERENCES person,
+        CONSTRAINT applications_persons_id_fk REFERENCES persons,
     event_id            BIGSERIAL
-        CONSTRAINT application_event_id_fk REFERENCES events,
+        CONSTRAINT applications_events_id_fk REFERENCES events,
     disciplines_id      BIGSERIAL
-        CONSTRAINT application_disciplines_id_fk REFERENCES disciplines,
+        CONSTRAINT applications_disciplines_id_fk REFERENCES disciplines,
     organization_id     BIGSERIAL
-        CONSTRAINT application_organization_id_fk REFERENCES organization,
+        CONSTRAINT applications_organizations_id_fk REFERENCES organizations,
     weapon_id           BIGSERIAL
-        CONSTRAINT application_weapon_id_fk REFERENCES weapon,
+        CONSTRAINT applications_weapons_id_fk REFERENCES weapons,
     weapon_manufacturer TEXT        NOT NULL,
     permit_serial       TEXT        NOT NULL,
     permit_num          TEXT        NOT NULL,
