@@ -43,7 +43,7 @@ Content-Type: application/json
   "patronymic": "Ivanovich",
   "birthday": "01.01.2001",
   "phone": "89377777777",
-  "email": "email@mail.ru",
+  "email": "test999java@gmail.com",
   "citizenshipId": "1",
   "countryId": "1",
   "gender": "M",
@@ -65,6 +65,10 @@ POST http://localhost:8080/person/restoreById?id=9
 ###
 
 POST http://localhost:8080/person/restoreById/1
+
+###
+
+POST http://localhost:8080/person/sandMailById?id=10&status=0
 
 
 

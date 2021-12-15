@@ -17,4 +17,5 @@ public class PersonBasicModel {
     private long countryId;
     private String gender;
     private String image;
+
 }

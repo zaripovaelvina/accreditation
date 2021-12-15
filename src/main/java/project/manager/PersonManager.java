@@ -3,13 +3,12 @@ package project.manager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 import project.domain.PersonBasicModel;
 import project.domain.PersonFullModel;
-import project.dto.PersonGetAllResponseDTO;
-import project.dto.PersonGetByIdResponseDTO;
-import project.dto.PersonSaveRequestDTO;
-import project.dto.PersonSaveResponseDTO;
+import project.dto.*;
 import project.exception.PersonNotFoundException;
 import project.rowmapper.PersonBasicRowMapper;
 import project.rowmapper.PersonFullRowMapper;
@@ -24,6 +23,7 @@ public class PersonManager {
     private final NamedParameterJdbcTemplate template;
     private final PersonBasicRowMapper personBasicRowMapper;
     private final PersonFullRowMapper personFullRowMapper;
+    private final JavaMailSender mailSender;
     private final String defaultImage = "noimage.png";
 
     public PersonGetAllResponseDTO getAll() {
@@ -217,4 +217,40 @@ public class PersonManager {
         return image == null ? defaultImage : image;
     }
 
+    public void sandMailById(long id, int status) {
+        try {
+            final String personEmail = template.queryForObject(
+                    // language=PostgreSQL
+                    """
+                            SELECT p.email FROM person p, application a
+                            WHERE p.id = a.person_id AND a.status = :status and  p.id = :id
+                            """,
+                    Map.of("id", id, "status", status),
+                    String.class
+            );
+
+            final SimpleMailMessage message = new SimpleMailMessage();
+
+            message.setFrom("test999java@gmail.com"); // логин
+            message.setTo(personEmail);
+
+            if (status == 1) {
+                message.setSubject("Вы можете участвовать на соревновании");
+                message.setText("Уважаемый участник! Благодарим Вас за участие на данном мероприятии. Желаем Вам успехов!");
+                mailSender.send(message);
+                System.out.println("Письмо успешно отправлено");
+            } else {
+                message.setSubject("Вы не можете участвовать на соревновании");
+                message.setText("Уважаемый участник! К сожалению, Вы не допущены к соревнованию." +
+                        "Благодарим Вас за желание участвовать на данном мероприятии. Ждем Вас в следующем году!");
+                mailSender.send(message);
+                System.out.println("Письмо успешно отправлено");
+
+            }
+        } catch (EmptyResultDataAccessException e) {
+            System.out.println("Письмо не отправилось");
+            throw new PersonNotFoundException(e);
+        }
+    }
 }
+

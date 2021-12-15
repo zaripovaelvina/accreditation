@@ -36,7 +36,7 @@ Content-Type: application/json
 
 {
   "id": 0,
-  "personId": "1",
+  "personId": "10",
   "eventId": "1",
   "disciplinesId": "2",
   "organizationId": "1",
@@ -71,7 +71,7 @@ POST http://localhost:8080/application/checkStatus/2
 
 ###
 
-POST http://localhost:8080/application/changeStatus?id=2&status=1
+POST http://localhost:8080/application/changeStatus?id=4&status=0
 
 ###
 

@@ -31,10 +31,18 @@ VALUES ('Чемпионат мира по стрельбе', 'noimage.png'),
 
 INSERT INTO person (name, surname, patronymic, birthday, phone, email,
                     citizenship_id, country_id, gender, image, removed, created)
-VALUES ('Ф', 'И', 'О', to_date('10.10.2000', 'dd.mm.yyyy'), '12345678', 'test@mail.ru',
+VALUES ('Ivanov', 'Ivan', 'Ivanovich', to_date('10.10.2000', 'dd.mm.yyyy'), '12345678', 'test@mail.ru',
         '1', '1', 'M', 'noimage.png', FALSE, current_date),
-       ('A', 'A', 'A', to_date('08.08.2003', 'dd.mm.yyyy'), '12345678', 't@mail.ru',
-        '1', '1', 'W', 'noimage.png', FALSE, current_date);
+       ('Abramova', 'Alina', 'Alexandrovna', to_date('08.08.2003', 'dd.mm.yyyy'), '12345678', 'test@mail.ru',
+        '1', '1', 'W', 'noimage.png', FALSE, current_date),
+       ('Rimanass', 'Alina', 'Albertovna', to_date('15.09.2003', 'dd.mm.yyyy'), '12345678', 'test@mail.ru',
+        '2', '1', 'W', 'noimage.png', FALSE, current_date),
+       ('Vasiliev', 'Vasiliy', 'Vasilievich', to_date('08.08.2000', 'dd.mm.yyyy'), '12345678', 'test@mail.ru',
+        '1', '1', 'M', 'noimage.png', FALSE, current_date),
+       ('Dmitriev', 'Ivan', 'Petrovich', to_date('09.08.2003', 'dd.mm.yyyy'), '12345678', 'test@mail.ru',
+        '1', '1', 'M', 'noimage.png', FALSE, current_date),
+       ('Andersen', 'Alex', 'Koy', to_date('01.12.2000', 'dd.mm.yyyy'), '12345678', 'test@mail.ru',
+        '2', '1', 'M', 'noimage.png', FALSE, current_date);
 
 INSERT INTO application (person_id, event_id, disciplines_id, organization_id, weapon_id, weapon_manufacturer,
                          permit_serial, permit_num, permit_date, permit_manufacturer, image)

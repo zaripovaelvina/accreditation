@@ -127,7 +127,7 @@ SELECT s.id, s.manager_id,
        (SELECT m.name FROM managers AS m WHERE m.id = s.manager_id) FROM sales AS s;
 -- AS писать не обязательно
 SELECT s.id, s.manager_id,
-       -- вложенный запрос должен возвращать 1 столбец (обязатель) и 1 строку (иначе будет NULL)
+       -- вложенный запрос должен возвращать 1 столбец (обязательно) и 1 строку (иначе будет NULL)
        (SELECT m.name FROM managers m WHERE m.id = s.manager_id) FROM sales s;
 -- без manager_id
 SELECT s.id,

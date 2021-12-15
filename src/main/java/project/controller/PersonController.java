@@ -2,10 +2,7 @@ package project.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import project.dto.PersonGetAllResponseDTO;
-import project.dto.PersonGetByIdResponseDTO;
-import project.dto.PersonSaveRequestDTO;
-import project.dto.PersonSaveResponseDTO;
+import project.dto.*;
 import project.manager.PersonManager;
 
 @RestController
@@ -30,7 +27,9 @@ public class PersonController {
     }
 
     @PostMapping("/save")
-    public PersonSaveResponseDTO save(@RequestBody PersonSaveRequestDTO requestDTO) { return manager.save(requestDTO); }
+    public PersonSaveResponseDTO save(@RequestBody PersonSaveRequestDTO requestDTO) {
+        return manager.save(requestDTO);
+    }
 
     @PostMapping("/removeById")
     public void removeByIdFromParam(@RequestParam long id) {
@@ -51,5 +50,11 @@ public class PersonController {
     public void restoreByIdFromPath(@PathVariable long id) {
         manager.restoreById(id);
     }
+
+    @PostMapping("/sandMailByStatus")
+    public void sandMailByStatus(@RequestParam long id, @RequestParam int status) { manager.sandMailById(id, status); }
+
+
+
 }
 
