@@ -26,10 +26,11 @@ CREATE TABLE events -- мероприятия
 
 CREATE TABLE disciplines -- дисциплины
 (
-    id           BIGSERIAL PRIMARY KEY,
-    name         TEXT    NOT NULL,
-    weaponStatus INT     NOT NULL,
-    selected     BOOLEAN NOT NULL DEFAULT FALSE
+    id       BIGSERIAL PRIMARY KEY,
+    name     TEXT    NOT NULL,
+    status   INT     NOT NULL,
+    selected BOOLEAN NOT NULL DEFAULT FALSE,
+    deleted  BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE weapons -- таблица оружий

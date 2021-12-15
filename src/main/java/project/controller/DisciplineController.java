@@ -3,32 +3,30 @@ package project.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import project.dto.*;
-import project.manager.PersonManager;
+import project.manager.DisciplineManager;
+
 
 @RestController
-@RequestMapping("/person")
+@RequestMapping("/discipline")
 @RequiredArgsConstructor
-public class PersonController {
-    private final PersonManager manager;
+public class DisciplineController {
+    private final DisciplineManager manager;
 
     @RequestMapping("/getAll")
-    public PersonGetAllResponseDTO getAll() {
-        return manager.getAll();
-    }
+    public DisciplineGetAllResponseDTO getAll() { return manager.getAll(); }
 
     @RequestMapping("/getById")
-    public PersonGetByIdResponseDTO getByIdFromParam(@RequestParam long id) {
+    public DisciplineGetByIdResponseDTO getByIdFromParam(@RequestParam long id) {
         return manager.getById(id);
     }
 
     @RequestMapping("/getById/{id}")
-    public PersonGetByIdResponseDTO getByIdFromPath(@PathVariable long id) {
+    public DisciplineGetByIdResponseDTO getByIdFromPath(@PathVariable long id) {
         return manager.getById(id);
     }
 
     @PostMapping("/save")
-    public PersonSaveResponseDTO save(@RequestBody PersonSaveRequestDTO requestDTO) {
-        return manager.save(requestDTO); }
+    public DisciplineSaveResponseDTO save(@RequestBody DisciplineSaveRequestDTO requestDTO) { return manager.save(requestDTO); }
 
     @PostMapping("/removeById")
     public void removeByIdFromParam(@RequestParam long id) {
@@ -49,9 +47,5 @@ public class PersonController {
     public void restoreByIdFromPath(@PathVariable long id) {
         manager.restoreById(id);
     }
-
-    @PostMapping("/sandMailByStatus")
-    public void sandMailByStatus(@RequestParam long id, @RequestParam int status) { manager.sandMailById(id, status); }
-
 }
 

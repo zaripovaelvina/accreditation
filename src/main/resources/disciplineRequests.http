@@ -1,0 +1,72 @@
+POST http://localhost:8080/media/multipart
+Content-Type: multipart/form-data; boundary=WebBoundary
+
+--WebBoundary
+Content-Disposition: form-data; name="image"; filename="media.jpg"
+Content-Type: image/jpeg
+
+< media.jpg
+
+--WebBoundary
+
+> {%
+client.global.set('mediaName', response.body.file);
+%}
+
+### REST
+
+GET http://localhost:8080/discipline/getAll
+
+###
+
+GET http://localhost:8080/discipline/getById?id=1
+
+###
+
+GET http://localhost:8080/discipline/getById/1
+
+###
+
+GET http://localhost:8080/discipline/getById?id=999
+
+###
+
+POST http://localhost:8080/discipline/save
+Content-Type: application/json
+
+{
+  "id": 0,
+  "name": "Синхронное плавание",
+  "status": "0"
+}
+
+###
+
+POST http://localhost:8080/discipline/save
+Content-Type: application/json
+
+{
+  "id": 0,
+  "name": "Биатлон среди мужчин",
+  "status": "1"
+}
+
+###
+
+POST http://localhost:8080/discipline/removeById?id=9
+
+###
+
+POST http://localhost:8080/discipline/removeById/9
+
+###
+
+POST http://localhost:8080/discipline/restoreById?id=9
+
+###
+
+POST http://localhost:8080/discipline/restoreById/9
+
+###
+
+

@@ -10,7 +10,7 @@ INSERT INTO organizations (name)
 VALUES ('Организация РФ'),
        ('Иностранная организация');
 
-INSERT INTO disciplines (name, weaponStatus)
+INSERT INTO disciplines (name, status)
 VALUES ('Шахматы', 0),
        ('Стрельба из ружья', 1),
        ('Большой теннис', 0),
