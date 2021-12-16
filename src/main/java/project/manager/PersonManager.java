@@ -102,11 +102,11 @@ public class PersonManager {
                 // language=PostgreSQL
                 """
                         INSERT INTO persons (name, surname, patronymic, birthday, phone, email, 
-                                           citizenship_id, country_id, gender, image) 
+                        citizenship_id, country_id, gender, image) 
                         VALUES (:name, :surname, :patronymic, to_date(:birthday, 'dd.mm.yyyy'), :phone, :email, 
-                               :citizenship_id, :country_id, :gender, :image)
+                        :citizenship_id, :country_id, :gender, :image)
                         RETURNING id, name, surname, patronymic, EXTRACT(EPOCH FROM birthday) AS birthday, phone, email, 
-                                  citizenship_id, country_id, gender, image
+                        citizenship_id, country_id, gender, image
                         """,
                 Map.of(
                         "name", requestDTO.getName(),
@@ -245,7 +245,6 @@ public class PersonManager {
                         "Благодарим Вас за желание участвовать на данном мероприятии. Ждем Вас в следующем году!");
                 mailSender.send(message);
                 System.out.println("Письмо успешно отправлено");
-
             }
         } catch (EmptyResultDataAccessException e) {
             System.out.println("Письмо не отправилось");

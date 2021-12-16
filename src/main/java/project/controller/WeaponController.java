@@ -3,7 +3,6 @@ package project.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import project.dto.*;
-import project.manager.EventManager;
 import project.manager.WeaponManager;
 
 

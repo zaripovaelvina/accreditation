@@ -31,7 +31,8 @@ public class DisciplineManager {
                 disciplineRowMapper
         );
 
-        final DisciplineGetAllResponseDTO responseDTO = new DisciplineGetAllResponseDTO(new ArrayList<>(disciplineLists.size()));
+        final DisciplineGetAllResponseDTO responseDTO = new DisciplineGetAllResponseDTO(
+                new ArrayList<>(disciplineLists.size()));
         for (DisciplineModel disciplineList : disciplineLists) {
             responseDTO.getDisciplines().add(new DisciplineGetAllResponseDTO.Disciplines(
                     disciplineList.getId(),
@@ -87,7 +88,8 @@ public class DisciplineManager {
                 disciplineRowMapper
         );
 
-        final DisciplineSaveResponseDTO responseDTO = new DisciplineSaveResponseDTO(new DisciplineSaveResponseDTO.Disciplines(
+        final DisciplineSaveResponseDTO responseDTO = new DisciplineSaveResponseDTO(
+                new DisciplineSaveResponseDTO.Disciplines(
                 disciplineOne.getId(),
                 disciplineOne.getName(),
                 disciplineOne.getStatus()
@@ -151,6 +153,6 @@ public class DisciplineManager {
     }
 
     private String getImage(String image) {
-        return image == null ? defaultImage :image;
+        return image == null ? defaultImage : image;
     }
 }

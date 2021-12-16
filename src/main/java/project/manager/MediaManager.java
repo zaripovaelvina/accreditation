@@ -1,6 +1,5 @@
 package project.manager;
 
-import jdk.jfr.ContentType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import project.dto.UploadSingleMediaResponseDTO;
@@ -41,7 +40,6 @@ public class MediaManager {
         if (extension == null) {
             throw new UnsupportedMediaException(contentType + "not allowed for upload");
         }
-
         return extension;
     }
 }

@@ -35,7 +35,8 @@ public class ApplicationManager {
                 // language=PostgreSQL
                 """
                         SELECT id, person_id, event_id, disciplines_id, organization_id, weapon_id, weapon_manufacturer,
-                               permit_serial, permit_num, EXTRACT(EPOCH FROM permit_date) AS permit_date, permit_manufacturer, image
+                               permit_serial, permit_num, EXTRACT(EPOCH FROM permit_date) AS permit_date, 
+                               permit_manufacturer, image
                         FROM applications
                         WHERE removed = FALSE
                         ORDER BY id
@@ -113,8 +114,7 @@ public class ApplicationManager {
                 // language=PostgreSQL
                 """
                         INSERT INTO applications (person_id, event_id, disciplines_id, organization_id, weapon_id, 
-                                                weapon_manufacturer, permit_serial, permit_num, permit_date, 
-                                                permit_manufacturer, image) 
+                        weapon_manufacturer, permit_serial, permit_num, permit_date, permit_manufacturer, image) 
                         VALUES (:person_id, :event_id, :disciplines_id, :organization_id, :weapon_id, 
                                :weapon_manufacturer, :permit_serial, :permit_num, to_date(:permit_date, 'dd.mm.yyyy'),
                                :permit_manufacturer, :image)
@@ -138,20 +138,21 @@ public class ApplicationManager {
                 ApplicationFullRowMapper
         );
 
-        final ApplicationSaveResponseDTO responseDTO = new ApplicationSaveResponseDTO(new ApplicationSaveResponseDTO.Applications(
-                applicationList.getId(),
-                applicationList.getPersonId(),
-                applicationList.getEventId(),
-                applicationList.getDisciplinesId(),
-                applicationList.getOrganizationId(),
-                applicationList.getWeaponId(),
-                applicationList.getWeaponManufacturer(),
-                applicationList.getPermitSerial(),
-                applicationList.getPermitNum(),
-                applicationList.getPermitDate(),
-                applicationList.getPermitManufacturer(),
-                applicationList.getImage()
-        ));
+        final ApplicationSaveResponseDTO responseDTO = new ApplicationSaveResponseDTO(
+                new ApplicationSaveResponseDTO.Applications(
+                        applicationList.getId(),
+                        applicationList.getPersonId(),
+                        applicationList.getEventId(),
+                        applicationList.getDisciplinesId(),
+                        applicationList.getOrganizationId(),
+                        applicationList.getWeaponId(),
+                        applicationList.getWeaponManufacturer(),
+                        applicationList.getPermitSerial(),
+                        applicationList.getPermitNum(),
+                        applicationList.getPermitDate(),
+                        applicationList.getPermitManufacturer(),
+                        applicationList.getImage()
+                ));
 
         return responseDTO;
     }
