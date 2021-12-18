@@ -104,7 +104,7 @@ public class EventManager {
         final int affected = template.update(
                 // language=PostgreSQL
                 """
-                        UPDATE events SET completed = TRUE WHERE id = :id
+                        UPDATE events SET completed = TRUE WHERE id = :id 
                         """,
                 Map.of("id", id)
         );
@@ -157,4 +157,5 @@ public class EventManager {
     private String getImage(String image) {
         return image == null ? defaultImage : image;
     }
+
 }

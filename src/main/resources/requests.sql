@@ -45,10 +45,8 @@ VALUES ('Ivanov', 'Ivan', 'Ivanovich', to_date('10.10.2000', 'dd.mm.yyyy'), '123
 SELECT p.id, p.email, a.status FROM persons p, applications a
 WHERE p.id = a.person_id AND a.status = 1 and  p.id = 8;
 
-
-
 SELECT p.email FROM persons p, applications a
-WHERE p.id = a.person_id AND a.status = :status and  p.id = :id
+WHERE p.id = a.person_id AND a.status = :status and  p.id = :id;
 
 
 INSERT INTO applications (person_id, event_id, disciplines_id, organization_id, weapon_id, weapon_manufacturer,
@@ -57,3 +55,27 @@ VALUES ('1', '3', '2', '1', '3', 'Калашников', 'AH', '678', to_date('1
         'noimage.png');
 
 UPDATE persons SET email = 'test999java@gmail.com' WHERE id = '1';
+
+UPDATE persons SET winner = TRUE WHERE id = 2 RETURNING id, name, winner;
+
+SELECT a.id  application_id, a.event_id, p.id member, p.name, p.winner FROM persons p JOIN applications a on p.id = a.person_id
+JOIN events e on a.event_id = e.id
+WHERE p.winner AND e.completed
+;
+
+SELECT id, name, completed FROM events WHERE completed = TRUE;
+
+UPDATE events SET completed = FALSE WHERE id = 8 RETURNING id, name, completed;
+
+-- админ заводит события
+-- польз ищет событие
+-- польз регистрируется, отправляет разрешение
+-- админ утверждвет заявку, отправляет письмо
+-- админ закрывает событие, определяет победителей
+-- статистика - выводит список победителей, отправляет письмо
+-- пользователь радуется :)
+
+
+
+
+

@@ -36,8 +36,8 @@ Content-Type: application/json
 
 {
   "id": 0,
-  "personId": "2",
-  "eventId": "1",
+  "personId": "5",
+  "eventId": "4",
   "disciplinesId": "2",
   "organizationId": "1",
   "weaponId": "2",
@@ -67,7 +67,7 @@ POST http://localhost:8080/application/restoreById/2
 
 ###
 
-POST http://localhost:8080/application/changeStatus?id=2&status=1
+POST http://localhost:8080/application/changeStatus?id=4&status=1
 
 ###
 

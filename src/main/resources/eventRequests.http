@@ -57,15 +57,15 @@ POST http://localhost:8080/event/removeById?id=7
 
 ###
 
-POST http://localhost:8080/event/removeById/1
+POST http://localhost:8080/event/removeById/8
 
 ###
 
-POST http://localhost:8080/event/restoreById?id=7
+POST http://localhost:8080/event/restoreById?id=8
 
 ###
 
-POST http://localhost:8080/event/restoreById/1
+POST http://localhost:8080/event/restoreById/8
 
 ###
 

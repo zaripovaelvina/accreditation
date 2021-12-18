@@ -57,7 +57,8 @@ CREATE TABLE persons -- таблица участников
     gender         TEXT        NOT NULL,
     image          TEXT        NOT NULL,
     removed        BOOLEAN     NOT NULL DEFAULT FALSE,
-    created        timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP
+    created        timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    winner         BOOLEAN     NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE applications -- заявка участника на мероприятие с разрешением
@@ -81,7 +82,8 @@ CREATE TABLE applications -- заявка участника на меропри
     image               TEXT        NOT NULL,
     removed             BOOLEAN     NOT NULL DEFAULT FALSE,
     created             timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    status              INT         NOT NULL DEFAULT 0
+    status              INT         NOT NULL DEFAULT 0,
+    CONSTRAINT single_application UNIQUE (event_id, person_id)
 );
 
 

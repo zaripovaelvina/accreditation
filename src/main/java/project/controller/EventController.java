@@ -49,5 +49,6 @@ public class EventController {
     public void restoreByIdFromPath(@PathVariable long id) {
         manager.restoreById(id);
     }
+
 }
 

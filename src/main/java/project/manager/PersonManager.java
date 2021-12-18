@@ -251,5 +251,18 @@ public class PersonManager {
             throw new PersonNotFoundException(e);
         }
     }
+
+    /*public void setWinner(long id, int status, boolean winner) {
+        final int affected = template.update(
+                // language=PostgreSQL
+                """
+                        UPDATE persons SET winner = TRUE WHERE id = :id AND status = :status
+                        """,
+                Map.of("id", id, "winner", winner)
+        );
+        if (affected == 0) {
+            throw new PersonNotFoundException("person with id" + id + " restored");
+        }
+    }*/
 }
 

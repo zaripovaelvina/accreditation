@@ -1,0 +1,116 @@
+### Администратор приложения загружает фото
+
+POST http://localhost:8080/media/multipart
+Content-Type: multipart/form-data; boundary=WebBoundary
+
+--WebBoundary
+Content-Disposition: form-data; name="image"; filename="event1.jpg"
+Content-Type: image/jpeg
+
+< event1.jpg
+
+--WebBoundary
+
+> {%
+client.global.set('mediaName', response.body.file);
+%}
+
+### Администратор приложения заводит мероприятия
+
+POST http://localhost:8080/event/save
+Content-Type: application/json
+
+{
+  "id": 0,
+  "name": "Стрельба по мишени 2022",
+  "image": "{{mediaName}}"
+}
+
+###
+
+POST http://localhost:8080/event/save
+Content-Type: application/json
+
+{
+  "id": 0,
+  "name": "Практическая стрельба 2022",
+  "image": "6e0374ef-e909-43e4-b32c-a9a426e273ad.jpeg"
+}
+
+### Участник заходит в приложение, видит все мероприятия
+
+GET http://localhost:8080/event/getAll
+
+### ищет нужное мероприятие (надо сделать)
+
+### выбирает одно мероприятие
+
+GET http://localhost:8080/event/getById?id=8
+
+### Участник регистрируется в приложении
+
+POST http://localhost:8080/person/save
+Content-Type: application/json
+
+{
+  "id": 0,
+  "name": "Ivan",
+  "surname": "Ivanov",
+  "patronymic": "Ivanovich",
+  "birthday": "01.01.2001",
+  "phone": "89377777777",
+  "email": "test999java@gmail.com",
+  "citizenshipId": "1",
+  "countryId": "1",
+  "gender": "M",
+  "image": "0f426c0b-0e93-48b4-b8dc-5d6285e24080.jpeg"
+}
+
+### Участник регистрируется на мероприятие
+
+POST http://localhost:8080/application/save
+Content-Type: application/json
+
+{
+  "id": 0,
+  "personId": "7",
+  "eventId": "6",
+  "disciplinesId": "2",
+  "organizationId": "1",
+  "weaponId": "2",
+  "weaponManufacturer": "Калашников",
+  "permitSerial": "AK",
+  "permitNum": "8888888",
+  "permitDate": "02.03.2020",
+  "permitManufacturer": "Психодиспансер",
+  "image": "0f426c0b-0e93-48b4-b8dc-5d6285e24080.jpeg"
+ }
+
+### Администратор утверждает заявку участника
+
+POST http://localhost:8080/application/changeStatus?id=2&status=1
+
+### Администратор отправляет электронное письмо участнику, заявку котрого утвердил
+
+POST http://localhost:8080/person/sandMailByStatus?id=7&status=1
+
+### Администратор отправляет электронное письмо участнику, заявку котрого не утвердил
+
+POST http://localhost:8080/person/sandMailByStatus?id=1&status=0
+
+### Администратор завершает мероприятие
+
+POST http://localhost:8080/event/removeById?id=6
+
+### Администратор выводит статистику по всем участникам по выбранному мероприятию
+
+### Администратор определяет победителей мероприятия
+
+### Администратор выводит статистику по всем победителям
+
+### Администратор подсчитывает количество участников
+
+### Администратор отправляет письмо победителю
+
+### Участник победитель радуется :)
+
