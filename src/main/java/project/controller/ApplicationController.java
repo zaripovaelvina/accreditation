@@ -1,7 +1,6 @@
 package project.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.apache.naming.factory.SendMailFactory;
 import org.springframework.web.bind.annotation.*;
 import project.dto.*;
 import project.manager.ApplicationManager;
@@ -29,7 +28,8 @@ public class ApplicationController {
 
     @PostMapping("/save")
     public ApplicationSaveResponseDTO save(@RequestBody ApplicationSaveRequestDTO requestDTO) {
-        return manager.save(requestDTO); }
+        return manager.save(requestDTO);
+    }
 
     @PostMapping("/removeById")
     public void removeByIdFromParam(@RequestParam long id) {
@@ -58,6 +58,18 @@ public class ApplicationController {
 
     @RequestMapping("/changeStatus/{id}")
     public void changeStatusPath(@PathVariable long id, @PathVariable int status) {
-        manager.changeStatus(id, status); }
+        manager.changeStatus(id, status);
+    }
+
+    @PostMapping("/setWinner")
+    public void setWinner(@RequestParam long personId, @RequestParam long eventId) {
+        manager.setWinner(personId, eventId); }
+
+    @RequestMapping("/membersOfEvent")
+    public MembersOfEventResponseDTO membersOfEvent(@RequestParam long eventId) {
+        return manager.membersOfEvent(eventId);
+    }
+
 }
+
 

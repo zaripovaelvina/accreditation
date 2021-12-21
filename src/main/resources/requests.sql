@@ -56,11 +56,11 @@ VALUES ('1', '3', '2', '1', '3', 'Калашников', 'AH', '678', to_date('1
 
 UPDATE persons SET email = 'test999java@gmail.com' WHERE id = '1';
 
-UPDATE persons SET winner = TRUE WHERE id = 2 RETURNING id, name, winner;
+UPDATE applications SET winner = TRUE WHERE id = 2 RETURNING id, winner;
 
-SELECT a.id  application_id, a.event_id, p.id member, p.name, p.winner FROM persons p JOIN applications a on p.id = a.person_id
-JOIN events e on a.event_id = e.id
-WHERE p.winner AND e.completed
+SELECT a.id  application_id, a.event_id, p.id member, p.name, a.winner FROM persons p JOIN applications a on p.id = a.person_id
+    JOIN events e on a.event_id = e.id
+WHERE a.event_id = 6 AND e.completed AND a.winner
 ;
 
 SELECT id, name, completed FROM events WHERE completed = TRUE;
@@ -74,6 +74,9 @@ UPDATE events SET completed = FALSE WHERE id = 8 RETURNING id, name, completed;
 -- админ закрывает событие, определяет победителей
 -- статистика - выводит список победителей, отправляет письмо
 -- пользователь радуется :)
+
+UPDATE applications SET winner = TRUE WHERE person_id = 1 AND event_id = 3
+
 
 
 

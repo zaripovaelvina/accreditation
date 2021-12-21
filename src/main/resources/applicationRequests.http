@@ -19,11 +19,11 @@ GET http://localhost:8080/application/getAll
 
 ###
 
-GET http://localhost:8080/application/getById?id=1
+GET http://localhost:8080/application/getById?id=6
 
 ###
 
-GET http://localhost:8080/application/getById/4
+GET http://localhost:8080/application/getById/2
 
 ###
 
@@ -71,3 +71,10 @@ POST http://localhost:8080/application/changeStatus?id=4&status=1
 
 ###
 
+POST http://localhost:8080/application/setWinner?personId=8&eventId=6
+
+###
+
+POST http://localhost:8080/application/membersOfEvent?eventId=1
+
+###

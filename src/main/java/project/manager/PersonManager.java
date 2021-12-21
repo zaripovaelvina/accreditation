@@ -252,6 +252,7 @@ public class PersonManager {
         }
     }
 
+
     /*public void setWinner(long id, int status, boolean winner) {
         final int affected = template.update(
                 // language=PostgreSQL

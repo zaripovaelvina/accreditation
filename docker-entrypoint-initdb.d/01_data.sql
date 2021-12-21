@@ -47,6 +47,12 @@ VALUES ('Ivanov', 'Ivan', 'Ivanovich', to_date('10.10.2000', 'dd.mm.yyyy'), '123
 INSERT INTO applications (person_id, event_id, disciplines_id, organization_id, weapon_id, weapon_manufacturer,
                          permit_serial, permit_num, permit_date, permit_manufacturer, image)
 VALUES ('1', '3', '2', '1', '3', 'Калашников', 'AH', '678', to_date('10.03.2020', 'dd.mm.yyyy'), 'Производитель',
+        'noimage.png'),
+       ('2', '1', '2', '1', '3', 'Калашников', 'AH', '678', to_date('10.03.2020', 'dd.mm.yyyy'), 'Производитель',
+        'noimage.png'),
+       ('5', '3', '2', '1', '3', 'Калашников', 'AH', '678', to_date('10.03.2020', 'dd.mm.yyyy'), 'Производитель',
+        'noimage.png'),
+       ('3', '1', '2', '1', '3', 'Калашников', 'AH', '678', to_date('10.03.2020', 'dd.mm.yyyy'), 'Производитель',
         'noimage.png');
 
 

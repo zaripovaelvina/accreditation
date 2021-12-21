@@ -57,8 +57,8 @@ CREATE TABLE persons -- таблица участников
     gender         TEXT        NOT NULL,
     image          TEXT        NOT NULL,
     removed        BOOLEAN     NOT NULL DEFAULT FALSE,
-    created        timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    winner         BOOLEAN     NOT NULL DEFAULT FALSE
+    created        timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP
+
 );
 
 CREATE TABLE applications -- заявка участника на мероприятие с разрешением
@@ -83,7 +83,23 @@ CREATE TABLE applications -- заявка участника на меропри
     removed             BOOLEAN     NOT NULL DEFAULT FALSE,
     created             timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP,
     status              INT         NOT NULL DEFAULT 0,
+    winner              INT         NOT NULL DEFAULT 0,
     CONSTRAINT single_application UNIQUE (event_id, person_id)
 );
+
+CREATE VIEW members AS
+SELECT a.id application_id,
+       a.event_id,
+       p.id member,
+       p.surname,
+       p.name,
+       p.patronymic,
+       p.birthday,
+       p.phone,
+       p.email,
+       a.winner
+FROM persons p
+         JOIN applications a on p.id = a.person_id
+         JOIN events e on a.event_id = e.id;
 
 

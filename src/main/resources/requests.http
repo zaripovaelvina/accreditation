@@ -45,7 +45,7 @@ GET http://localhost:8080/event/getAll
 
 ### выбирает одно мероприятие
 
-GET http://localhost:8080/event/getById?id=8
+GET http://localhost:8080/event/getById?id=6
 
 ### Участник регистрируется в приложении
 
@@ -73,7 +73,7 @@ Content-Type: application/json
 
 {
   "id": 0,
-  "personId": "7",
+  "personId": "2",
   "eventId": "6",
   "disciplinesId": "2",
   "organizationId": "1",
@@ -88,29 +88,39 @@ Content-Type: application/json
 
 ### Администратор утверждает заявку участника
 
-POST http://localhost:8080/application/changeStatus?id=2&status=1
+POST http://localhost:8080/application/changeStatus?id=5&status=1
 
 ### Администратор отправляет электронное письмо участнику, заявку котрого утвердил
 
-POST http://localhost:8080/person/sandMailByStatus?id=7&status=1
+POST http://localhost:8080/person/sandMailByStatus?id=2&status=1
 
 ### Администратор отправляет электронное письмо участнику, заявку котрого не утвердил
 
-POST http://localhost:8080/person/sandMailByStatus?id=1&status=0
+POST http://localhost:8080/person/sandMailByStatus?id=7&status=0
 
 ### Администратор завершает мероприятие
 
-POST http://localhost:8080/event/removeById?id=6
+POST http://localhost:8080/event/removeById?id=3
 
 ### Администратор выводит статистику по всем участникам по выбранному мероприятию
 
+POST http://localhost:8080/application/membersOfEvent?eventId=3
+
 ### Администратор определяет победителей мероприятия
+
+POST http://localhost:8080/application/setWinner?personId=1&eventId=3
 
 ### Администратор выводит статистику по всем победителям
 
+
+
 ### Администратор подсчитывает количество участников
+
+
 
 ### Администратор отправляет письмо победителю
 
-### Участник победитель радуется :)
+
+
+### Участник радуется :)
 
