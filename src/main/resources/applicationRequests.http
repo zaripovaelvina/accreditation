@@ -75,6 +75,10 @@ POST http://localhost:8080/application/setWinner?personId=8&eventId=6
 
 ###
 
-POST http://localhost:8080/application/membersOfEvent?eventId=1
+GET http://localhost:8080/application/membersOfEvent?eventId=1
+
+###
+
+GET http://localhost:8080/application/getWinners?eventId=3&winner=1
 
 ###

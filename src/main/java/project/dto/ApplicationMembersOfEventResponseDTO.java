@@ -9,7 +9,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class MembersOfEventResponseDTO {
+public class ApplicationMembersOfEventResponseDTO {
     private List<Members> member;
 
     @NoArgsConstructor

@@ -66,9 +66,12 @@ public class ApplicationController {
         manager.setWinner(personId, eventId); }
 
     @RequestMapping("/membersOfEvent")
-    public MembersOfEventResponseDTO membersOfEvent(@RequestParam long eventId) {
-        return manager.membersOfEvent(eventId);
-    }
+    public ApplicationMembersOfEventResponseDTO membersOfEvent(@RequestParam long eventId) {
+        return manager.membersOfEvent(eventId);    }
+
+    @RequestMapping("/getWinners")
+    public ApplicationWinnersOfEventResponseDTO getWinners(@RequestParam long eventId, @RequestParam int winner) {
+        return manager.getWinners(eventId, winner);    }
 
 }
 

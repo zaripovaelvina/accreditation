@@ -273,7 +273,7 @@ public class ApplicationManager {
         }
     }
 
-    public MembersOfEventResponseDTO membersOfEvent(long eventId) {
+    public ApplicationMembersOfEventResponseDTO membersOfEvent(long eventId) {
         try {
                 final List<MemberFullModel> memberLists = template.query(
                 // language=PostgreSQL
@@ -289,9 +289,9 @@ public class ApplicationManager {
                 memberFullRowMapper
         );
 
-        final MembersOfEventResponseDTO responseDTO = new MembersOfEventResponseDTO(new ArrayList<>(memberLists.size()));
+        final ApplicationMembersOfEventResponseDTO responseDTO = new ApplicationMembersOfEventResponseDTO(new ArrayList<>(memberLists.size()));
         for (MemberFullModel memberList : memberLists) {
-            responseDTO.getMember().add(new MembersOfEventResponseDTO.Members(
+            responseDTO.getMember().add(new ApplicationMembersOfEventResponseDTO.Members(
                     memberList.getApplicationId(),
                     memberList.getEventId(),
                     memberList.getMember(),
@@ -306,6 +306,45 @@ public class ApplicationManager {
         }
 
         return responseDTO;
+        } catch (EmptyResultDataAccessException e) {
+            throw new MemberNotFoundException(e);
+        }
+    }
+
+    public ApplicationWinnersOfEventResponseDTO getWinners(long eventId, int winner) {
+        try {
+            final List<MemberFullModel> winnerLists = template.query(
+                    // language=PostgreSQL
+                    """
+                            SELECT application_id, event_id, member, surname, name, patronymic,
+                            EXTRACT(EPOCH FROM birthday) AS birthday, phone, email, winner
+                            FROM members
+                            WHERE event_id = :eventId AND winner = :winner
+                            ORDER BY event_id
+                            LIMIT 100
+                            """,
+                    Map.of("eventId", eventId,
+                            "winner", winner),
+                    memberFullRowMapper
+            );
+
+            final ApplicationWinnersOfEventResponseDTO responseDTO = new ApplicationWinnersOfEventResponseDTO(new ArrayList<>(winnerLists.size()));
+            for (MemberFullModel winnerList : winnerLists) {
+                responseDTO.getMember().add(new ApplicationWinnersOfEventResponseDTO.Members(
+                        winnerList.getApplicationId(),
+                        winnerList.getEventId(),
+                        winnerList.getMember(),
+                        winnerList.getSurname(),
+                        winnerList.getName(),
+                        winnerList.getPatronymic(),
+                        winnerList.getBirthday(),
+                        winnerList.getPhone(),
+                        winnerList.getEmail(),
+                        winnerList.getWinner()
+                ));
+            }
+
+            return responseDTO;
         } catch (EmptyResultDataAccessException e) {
             throw new MemberNotFoundException(e);
         }
