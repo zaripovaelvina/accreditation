@@ -97,7 +97,8 @@ SELECT a.id application_id,
        p.birthday,
        p.phone,
        p.email,
-       a.winner
+       a.winner,
+       a.status
 FROM persons p
          JOIN applications a on p.id = a.person_id
          JOIN events e on a.event_id = e.id;

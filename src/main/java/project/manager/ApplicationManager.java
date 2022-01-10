@@ -3,15 +3,11 @@ package project.manager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Component;
 import project.domain.ApplicationBasicModel;
 import project.domain.ApplicationFullModel;
-import project.domain.MemberFullModel;
-import project.domain.PersonBasicModel;
 import project.dto.*;
 import project.exception.ApplicationNotFoundException;
-import project.exception.MemberNotFoundException;
 import project.exception.PersonNotFoundException;
 import project.rowmapper.ApplicationBasicRowMapper;
 import project.rowmapper.ApplicationFullRowMapper;
@@ -239,9 +235,6 @@ public class ApplicationManager {
     }
 
     public void changeStatus(long id, int status) {
-        final PersonBasicModel basicEmail = new PersonBasicModel();
-        final SimpleMailMessage message = new SimpleMailMessage();
-
         try {
             final long personId = template.queryForObject(
                     // language=PostgreSQL
@@ -270,83 +263,6 @@ public class ApplicationManager {
         );
         if (affected == 0) {
             throw new ApplicationNotFoundException("Application with id" + personId + " NotFound");
-        }
-    }
-
-    public ApplicationMembersOfEventResponseDTO membersOfEvent(long eventId) {
-        try {
-                final List<MemberFullModel> memberLists = template.query(
-                // language=PostgreSQL
-                """
-                        SELECT application_id, event_id, member, surname, name, patronymic,
-                        EXTRACT(EPOCH FROM birthday) AS birthday, phone, email, winner
-                        FROM members
-                        WHERE event_id = :eventId
-                        ORDER BY event_id
-                        LIMIT 100
-                        """,
-                Map.of("eventId", eventId),
-                memberFullRowMapper
-        );
-
-        final ApplicationMembersOfEventResponseDTO responseDTO = new ApplicationMembersOfEventResponseDTO(new ArrayList<>(memberLists.size()));
-        for (MemberFullModel memberList : memberLists) {
-            responseDTO.getMember().add(new ApplicationMembersOfEventResponseDTO.Members(
-                    memberList.getApplicationId(),
-                    memberList.getEventId(),
-                    memberList.getMember(),
-                    memberList.getSurname(),
-                    memberList.getName(),
-                    memberList.getPatronymic(),
-                    memberList.getBirthday(),
-                    memberList.getPhone(),
-                    memberList.getEmail(),
-                    memberList.getWinner()
-            ));
-        }
-
-        return responseDTO;
-        } catch (EmptyResultDataAccessException e) {
-            throw new MemberNotFoundException(e);
-        }
-    }
-
-    public ApplicationWinnersOfEventResponseDTO getWinners(long eventId, int winner) {
-        try {
-            final List<MemberFullModel> winnerLists = template.query(
-                    // language=PostgreSQL
-                    """
-                            SELECT application_id, event_id, member, surname, name, patronymic,
-                            EXTRACT(EPOCH FROM birthday) AS birthday, phone, email, winner
-                            FROM members
-                            WHERE event_id = :eventId AND winner = :winner
-                            ORDER BY event_id
-                            LIMIT 100
-                            """,
-                    Map.of("eventId", eventId,
-                            "winner", winner),
-                    memberFullRowMapper
-            );
-
-            final ApplicationWinnersOfEventResponseDTO responseDTO = new ApplicationWinnersOfEventResponseDTO(new ArrayList<>(winnerLists.size()));
-            for (MemberFullModel winnerList : winnerLists) {
-                responseDTO.getMember().add(new ApplicationWinnersOfEventResponseDTO.Members(
-                        winnerList.getApplicationId(),
-                        winnerList.getEventId(),
-                        winnerList.getMember(),
-                        winnerList.getSurname(),
-                        winnerList.getName(),
-                        winnerList.getPatronymic(),
-                        winnerList.getBirthday(),
-                        winnerList.getPhone(),
-                        winnerList.getEmail(),
-                        winnerList.getWinner()
-                ));
-            }
-
-            return responseDTO;
-        } catch (EmptyResultDataAccessException e) {
-            throw new MemberNotFoundException(e);
         }
     }
 }

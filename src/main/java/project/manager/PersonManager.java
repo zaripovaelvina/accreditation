@@ -217,7 +217,7 @@ public class PersonManager {
         return image == null ? defaultImage : image;
     }
 
-    public void sandMailById(long id, int status) {
+    public void sandMailByStatus(long id, int status) {
         try {
             final String personEmail = template.queryForObject(
                     // language=PostgreSQL
@@ -238,13 +238,11 @@ public class PersonManager {
                 message.setSubject("Вы можете участвовать на соревновании");
                 message.setText("Уважаемый участник! Благодарим Вас за участие на данном мероприятии. Желаем Вам успехов!");
                 mailSender.send(message);
-                System.out.println("Письмо успешно отправлено");
             } else {
                 message.setSubject("Вы не можете участвовать на соревновании");
                 message.setText("Уважаемый участник! К сожалению, Вы не допущены к соревнованию." +
                         "Благодарим Вас за желание участвовать на данном мероприятии. Ждем Вас в следующем году!");
                 mailSender.send(message);
-                System.out.println("Письмо успешно отправлено");
             }
         } catch (EmptyResultDataAccessException e) {
             System.out.println("Письмо не отправилось");
@@ -252,18 +250,29 @@ public class PersonManager {
         }
     }
 
+    public void sandMailToWinner(long id, int status) {
+        try {
+            final String personEmail = template.queryForObject(
+                    // language=PostgreSQL
+                    """
+                            SELECT p.email FROM persons p, applications a
+                            WHERE p.id = a.person_id AND a.status = :status and  p.id = :id
+                            """,
+                    Map.of("id", id, "status", status),
+                    String.class
+            );
 
-    /*public void setWinner(long id, int status, boolean winner) {
-        final int affected = template.update(
-                // language=PostgreSQL
-                """
-                        UPDATE persons SET winner = TRUE WHERE id = :id AND status = :status
-                        """,
-                Map.of("id", id, "winner", winner)
-        );
-        if (affected == 0) {
-            throw new PersonNotFoundException("person with id" + id + " restored");
+            final SimpleMailMessage message = new SimpleMailMessage();
+            message.setFrom("test999java@gmail.com"); // логин
+            message.setTo(personEmail);
+            message.setSubject("Поздравляем! Вы победили на соревновании");
+            message.setText("Уважаемый участник! Церемония награждения состоится ...");
+            mailSender.send(message);
+
+        } catch (EmptyResultDataAccessException e) {
+            System.out.println("Письмо не отправилось");
+            throw new PersonNotFoundException(e);
         }
-    }*/
+    }
 }
 

@@ -1,4 +1,4 @@
-### Администратор приложения загружает фото
+### Администратор приложения загружает фото по мероприятию
 
 POST http://localhost:8080/media/multipart
 Content-Type: multipart/form-data; boundary=WebBoundary
@@ -26,7 +26,7 @@ Content-Type: application/json
   "image": "{{mediaName}}"
 }
 
-###
+### Администратор приложения заводит мероприятия
 
 POST http://localhost:8080/event/save
 Content-Type: application/json
@@ -34,29 +34,25 @@ Content-Type: application/json
 {
   "id": 0,
   "name": "Практическая стрельба 2022",
-  "image": "6e0374ef-e909-43e4-b32c-a9a426e273ad.jpeg"
+  "image": "ee2e2796-8c64-4d76-a015-0d5259898141.jpeg"
 }
 
 ### Участник заходит в приложение, видит все мероприятия
 
 GET http://localhost:8080/event/getAll
 
-### ищет нужное мероприятие (надо сделать)!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+### Участник выбирает мероприятие
 
+GET http://localhost:8080/event/getById?id=5
 
-
-### выбирает одно мероприятие
-
-GET http://localhost:8080/event/getById?id=6
-
-### Участник регистрируется в приложении
+### Участник регистрируется в системе
 
 POST http://localhost:8080/person/save
 Content-Type: application/json
 
 {
   "id": 0,
-  "name": "Ivan",
+  "name": "Nika",
   "surname": "Ivanov",
   "patronymic": "Ivanovich",
   "birthday": "01.01.2001",
@@ -75,8 +71,8 @@ Content-Type: application/json
 
 {
   "id": 0,
-  "personId": "2",
-  "eventId": "6",
+  "personId": "9",
+  "eventId": "5",
   "disciplinesId": "2",
   "organizationId": "1",
   "weaponId": "2",
@@ -90,39 +86,39 @@ Content-Type: application/json
 
 ### Администратор утверждает заявку участника
 
-POST http://localhost:8080/application/changeStatus?id=5&status=1
+POST http://localhost:8080/application/changeStatus?id=6&status=1
 
 ### Администратор отправляет электронное письмо участнику, заявку котрого утвердил
 
-POST http://localhost:8080/person/sandMailByStatus?id=2&status=1
+POST http://localhost:8080/person/sandMailByStatus?id=8&status=1
 
 ### Администратор отправляет электронное письмо участнику, заявку котрого не утвердил
 
-POST http://localhost:8080/person/sandMailByStatus?id=7&status=0
+POST http://localhost:8080/person/sandMailByStatus?id=9&status=0
 
 ### Администратор завершает мероприятие
 
-POST http://localhost:8080/event/removeById?id=3
+POST http://localhost:8080/event/removeById?id=5
 
 ### Администратор выводит статистику по всем участникам по выбранному мероприятию
 
-GET http://localhost:8080/application/membersOfEvent?eventId=3
+GET http://localhost:8080/member/membersOfEvent?eventId=5
 
 ### Администратор определяет победителей мероприятия
 
-POST http://localhost:8080/application/setWinner?personId=1&eventId=3
+POST http://localhost:8080/application/setWinner?personId=8&eventId=5
 
-### Администратор выводит статистику по всем победителям
+### Администратор выводит победителя по выбранному мероприятию
 
-GET http://localhost:8080/application/getWinners?eventId=3&winner=1
+GET http://localhost:8080/member/getWinners?eventId=5&winner=1
 
-### Администратор подсчитывает количество участников
+### Администратор подсчитывает количество участников по мероприятиям
 
-
+POST http://localhost:8080/application/memberCount
 
 ### Администратор отправляет письмо победителю
 
-
+POST http://localhost:8080/person/sandMailToWinner?id=8&status=1
 
 ### Участник радуется :)
 

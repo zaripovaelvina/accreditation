@@ -28,8 +28,7 @@ public class ApplicationController {
 
     @PostMapping("/save")
     public ApplicationSaveResponseDTO save(@RequestBody ApplicationSaveRequestDTO requestDTO) {
-        return manager.save(requestDTO);
-    }
+        return manager.save(requestDTO);    }
 
     @PostMapping("/removeById")
     public void removeByIdFromParam(@RequestParam long id) {
@@ -63,16 +62,8 @@ public class ApplicationController {
 
     @PostMapping("/setWinner")
     public void setWinner(@RequestParam long personId, @RequestParam long eventId) {
-        manager.setWinner(personId, eventId); }
-
-    @RequestMapping("/membersOfEvent")
-    public ApplicationMembersOfEventResponseDTO membersOfEvent(@RequestParam long eventId) {
-        return manager.membersOfEvent(eventId);    }
-
-    @RequestMapping("/getWinners")
-    public ApplicationWinnersOfEventResponseDTO getWinners(@RequestParam long eventId, @RequestParam int winner) {
-        return manager.getWinners(eventId, winner);    }
-
+        manager.setWinner(personId, eventId);    }
 }
+
 
 

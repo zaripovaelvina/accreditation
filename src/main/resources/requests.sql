@@ -67,18 +67,34 @@ SELECT id, name, completed FROM events WHERE completed = TRUE;
 
 UPDATE events SET completed = FALSE WHERE id = 8 RETURNING id, name, completed;
 
--- админ заводит события
--- польз ищет событие
--- польз регистрируется, отправляет разрешение
--- админ утверждвет заявку, отправляет письмо
--- админ закрывает событие, определяет победителей
--- статистика - выводит список победителей, отправляет письмо
--- пользователь радуется :)
+UPDATE applications SET winner = TRUE WHERE person_id = 1 AND event_id = 3;
 
-UPDATE applications SET winner = TRUE WHERE person_id = 1 AND event_id = 3
+SELECT count(*) from members GROUP BY event_id;
+
+SELECT count(*) from members GROUP BY event_id;
+
+CREATE VIEW membersss AS
+SELECT a.id application_id,
+       a.event_id,
+       p.id member,
+       p.surname,
+       p.name,
+       p.patronymic,
+       p.birthday,
+       p.phone,
+       p.email,
+       a.winner,
+       a.status
+FROM persons p
+         JOIN applications a on p.id = a.person_id
+         JOIN events e on a.event_id = e.id;
 
 
-
+SELECT application_id, event_id, member, surname, name, patronymic,
+       EXTRACT(EPOCH FROM birthday) AS birthday, phone, email, winner, status
+FROM members
+WHERE event_id = 5 AND status = 1
+ORDER BY event_id;
 
 
 

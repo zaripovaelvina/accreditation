@@ -51,8 +51,9 @@ public class PersonController {
     }
 
     @PostMapping("/sandMailByStatus")
-    public void sandMailByStatus(@RequestParam long id, @RequestParam int status) { manager.sandMailById(id, status); }
+    public void sandMailByStatus(@RequestParam long id, @RequestParam int status) { manager.sandMailByStatus(id, status); }
 
-
+    @PostMapping("/sandMailToWinner")
+    public void sandMailToWinner(@RequestParam long id, @RequestParam int status) { manager.sandMailToWinner(id, status); }
 }
 

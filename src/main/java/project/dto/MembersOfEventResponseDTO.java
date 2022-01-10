@@ -9,7 +9,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class ApplicationWinnersOfEventResponseDTO {
+public class MembersOfEventResponseDTO {
     private List<Members> member;
 
     @NoArgsConstructor
@@ -26,5 +26,6 @@ public class ApplicationWinnersOfEventResponseDTO {
         private String phone;
         private String email;
         private Integer winner;
+        private Integer status;
     }
 }

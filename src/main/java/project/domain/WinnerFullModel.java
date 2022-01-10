@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class MemberFullModel {
+public class WinnerFullModel {
     private long applicationId;
     private long eventId;
     private long member;
@@ -17,7 +17,5 @@ public class MemberFullModel {
     private long birthday;
     private String phone;
     private String email;
-    private Integer winner;
-    private Integer status;
 }
 
