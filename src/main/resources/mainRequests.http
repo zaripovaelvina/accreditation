@@ -15,7 +15,7 @@ Content-Type: image/jpeg
 client.global.set('mediaName', response.body.file);
 %}
 
-### Администратор приложения заводит мероприятия
+### Администратор приложения заводит мероприятие
 
 POST http://localhost:8080/event/save
 Content-Type: application/json
@@ -64,7 +64,7 @@ Content-Type: application/json
   "image": "0f426c0b-0e93-48b4-b8dc-5d6285e24080.jpeg"
 }
 
-### Участник регистрируется на мероприятие
+### Участник регистрируется на выбранное мероприятие
 
 POST http://localhost:8080/application/save
 Content-Type: application/json

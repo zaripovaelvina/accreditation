@@ -12,23 +12,37 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.2</version>
+                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
                     <source>16</source>
                     <target>16</target>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
+            </plugin>
         </plugins>
+
     </build>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <lombok.groupId>org.projectlombok</lombok.groupId>
         <spring-boot-starter-web.groupId>org.springframework.boot</spring-boot-starter-web.groupId>
         <lombok.version>1.18.22</lombok.version>
         <spring-boot-starter.version>2.6.1</spring-boot-starter.version>
         <postgresql.version>42.2.24</postgresql.version>
+        <spring-boot-starter-test.version>2.6.1</spring-boot-starter-test.version>
+        <junit-jupiter-api.version>5.8.2</junit-jupiter-api.version>
+        <testcontainers>1.16.2</testcontainers>
+        <testcontainers.version>1.16.2</testcontainers.version>
+        <maven-compiler-plugin.version>2.3.2</maven-compiler-plugin.version>
+        <maven-surefire-plugin.version>2.22.1</maven-surefire-plugin.version>
     </properties>
 
     <dependencies>
@@ -69,5 +83,26 @@
             <artifactId>postgresql</artifactId>
             <version>${postgresql.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <version>${spring-boot-starter.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit-jupiter-api.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${testcontainers.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
+
 </project>
