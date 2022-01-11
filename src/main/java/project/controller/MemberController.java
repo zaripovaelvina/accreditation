@@ -20,8 +20,8 @@ public class MemberController {
         return manager.getWinners(eventId, winner);    }
 
     @RequestMapping("/memberCount")
-    public MembersCountResponseDTO memberCount() {
-        return manager.memberCount();
+    public MemberCountResponseDTO memberCount(@RequestParam long eventId) {
+        return manager.memberCount(eventId);
     }
 }
 

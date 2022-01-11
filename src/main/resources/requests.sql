@@ -96,5 +96,7 @@ FROM members
 WHERE event_id = 5 AND status = 1
 ORDER BY event_id;
 
+SELECT count(member) from members WHERE status = 1 AND event_id = 5
+
 
 

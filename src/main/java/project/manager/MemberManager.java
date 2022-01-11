@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import project.domain.MemberFullModel;
 import project.domain.WinnerFullModel;
 import project.dto.*;
+import project.exception.MemberCountMoreThanQuotaException;
 import project.exception.MemberNotFoundException;
 import project.rowmapper.MemberFullRowMapper;
 import project.rowmapper.WinnerFullRowMapper;
@@ -102,26 +103,19 @@ public class MemberManager {
         }
     }
 
-    public MembersCountResponseDTO memberCount() {
+    public MemberCountResponseDTO memberCount(long eventId) {
         try {
-            final List<MemberFullModel> memberLists = template.query(
+            final long member = template.queryForObject(
                     // language=PostgreSQL
                     """
-                            SELECT count(*) from members 
-                            GROUP BY event_id
-                            LIMIT 100
+                            SELECT count(member) from members WHERE status = 1 AND event_id = :eventId
                             """,
-                    memberFullRowMapper
+                    Map.of("eventId", eventId),
+                    Long.class
             );
 
-            final MembersCountResponseDTO responseDTO = new MembersCountResponseDTO(
-                    new ArrayList<>(memberLists.size()));
-            for (MemberFullModel memberList : memberLists) {
-                responseDTO.getMember().add(new MembersCountResponseDTO.Members(
-                        memberList.getEventId()
-                ));
-            }
-            return responseDTO;
+            return new MemberCountResponseDTO(member);
+
         } catch (EmptyResultDataAccessException e) {
             throw new MemberNotFoundException(e);
         }

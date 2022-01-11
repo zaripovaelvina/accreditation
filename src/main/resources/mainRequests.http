@@ -52,7 +52,7 @@ Content-Type: application/json
 
 {
   "id": 0,
-  "name": "Nika",
+  "name": "Nik",
   "surname": "Ivanov",
   "patronymic": "Ivanovich",
   "birthday": "01.01.2001",
@@ -104,6 +104,10 @@ POST http://localhost:8080/event/removeById?id=5
 
 GET http://localhost:8080/member/membersOfEvent?eventId=5
 
+### Администратор подсчитывает количество участников по мероприятиям
+
+POST http://localhost:8080/member/memberCount?eventId=5
+
 ### Администратор определяет победителей мероприятия
 
 POST http://localhost:8080/application/setWinner?personId=8&eventId=5
@@ -111,10 +115,6 @@ POST http://localhost:8080/application/setWinner?personId=8&eventId=5
 ### Администратор выводит победителя по выбранному мероприятию
 
 GET http://localhost:8080/member/getWinners?eventId=5&winner=1
-
-### Администратор подсчитывает количество участников по мероприятиям
-
-POST http://localhost:8080/application/memberCount
 
 ### Администратор отправляет письмо победителю
 
