@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import project.domain.MemberFullModel;
 import project.domain.WinnerFullModel;
 import project.dto.*;
-import project.exception.MemberCountMoreThanQuotaException;
 import project.exception.MemberNotFoundException;
 import project.rowmapper.MemberFullRowMapper;
 import project.rowmapper.WinnerFullRowMapper;

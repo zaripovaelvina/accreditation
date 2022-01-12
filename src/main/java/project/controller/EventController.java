@@ -28,7 +28,9 @@ public class EventController {
     }
 
     @PostMapping("/save")
-    public EventSaveResponseDTO save(@RequestBody EventSaveRequestDTO requestDTO) { return manager.save(requestDTO); }
+    public EventSaveResponseDTO save(@RequestBody EventSaveRequestDTO requestDTO) {
+        return manager.save(requestDTO);
+    }
 
     @PostMapping("/removeById")
     public void removeByIdFromParam(@RequestParam long id) {
