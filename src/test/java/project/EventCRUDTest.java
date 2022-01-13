@@ -77,11 +77,11 @@ class EventCRUDTest {
                                 // language=JSON
                                 """
                                         {
-                                          "events": {
-                                            "id": 1,
-                                            "name": "Чемпионат мира по стрельбе",
-                                            "image": "noimage.png"
-                                          }
+                                           "events": {
+                                             "id": 1,
+                                             "name": "Чемпионат мира по стрельбе",
+                                             "image": "noimage.png"
+                                           }
                                         }                                                                   
                                         """
                         )
@@ -96,12 +96,12 @@ class EventCRUDTest {
                                 // language=JSON
                                 """
                                         {
-                                          "events": {
-                                            "id": 1,
-                                            "name": "Чемпионат мира по стрельбе",
-                                            "image": "noimage.png"
-                                          }
-                                        }                                                                   
+                                           "events": {
+                                             "id": 1,
+                                             "name": "Чемпионат мира по стрельбе",
+                                             "image": "noimage.png"
+                                           }
+                                        }                                                               
                                         """
                         )
                 );
