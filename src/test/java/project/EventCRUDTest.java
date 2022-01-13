@@ -32,7 +32,7 @@ class EventCRUDTest {
     void shouldPerformCRUD() throws Exception {
         // getAll
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/event/getAll")
+                        MockMvcRequestBuilders.get("/event/getAll")
                 )
                 .andExpectAll(
                         MockMvcResultMatchers.status().isOk(),
@@ -68,7 +68,7 @@ class EventCRUDTest {
                 );
 
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/event/getById")
+                        MockMvcRequestBuilders.get("/event/getById")
                                 .param("id", String.valueOf(1))
                 )
                 .andExpectAll(
@@ -77,18 +77,48 @@ class EventCRUDTest {
                                 // language=JSON
                                 """
                                         {
-                                           "events": {
-                                             "id": 1,
-                                             "name": "Чемпионат мира по стрельбе",
-                                             "image": "noimage.png"
-                                           }
-                                        }                                                                   
+                                              "events": {
+                                                "id": 1,
+                                                "name": "Чемпионат мира по стрельбе",
+                                                "image": "noimage.png"
+                                              }
+                                        }                                                                  
                                         """
                         )
                 );
 
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/event/getById{id}", 1)
+                        MockMvcRequestBuilders.get("/event/getById{id}", 1)
+                )
+                .andExpectAll(
+                        MockMvcResultMatchers.status().isOk(),
+                        MockMvcResultMatchers.content().json(
+                                // language=JSON
+                                """
+                                        {
+                                               "events": {
+                                                 "id": 1,
+                                                 "name": "Чемпионат мира по стрельбе",
+                                                 "image": "noimage.png"
+                                               }
+                                        }                                                            
+                                        """
+                        )
+                );
+
+        mockMvc.perform(
+                        MockMvcRequestBuilders.post("/event/save")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(
+                                        // language=JSON
+                                        """
+                                                {
+                                                   "id": 0,
+                                                   "name": "Стрельба по мишени 2022",
+                                                   "image": "noimage.png"
+                                                }
+                                                """
+                                )
                 )
                 .andExpectAll(
                         MockMvcResultMatchers.status().isOk(),
@@ -97,40 +127,10 @@ class EventCRUDTest {
                                 """
                                         {
                                            "events": {
-                                             "id": 1,
-                                             "name": "Чемпионат мира по стрельбе",
+                                             "id": 5,
+                                             "name": "Стрельба по мишени 2022",
                                              "image": "noimage.png"
                                            }
-                                        }                                                               
-                                        """
-                        )
-                );
-
-        mockMvc.perform(
-                MockMvcRequestBuilders.post("/event/save")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(
-                                // language=JSON
-                                """
-                                        {
-                                          "id": 0,
-                                          "name": "Практическая стрельба 2022",
-                                          "image": "ee2e2796-8c64-4d76-a015-0d5259898141.jpeg"
-                                        }
-                                        """
-                        )
-        )
-                .andExpectAll(
-                        MockMvcResultMatchers.status().isOk(),
-                        MockMvcResultMatchers.content().json(
-                                // language=JSON
-                                """
-                                        {
-                                          "events": {
-                                            "id": 5,
-                                            "name": "Практическая стрельба 2022",
-                                            "image": "ee2e2796-8c64-4d76-a015-0d5259898141.jpeg"
-                                          }
                                         }
                                         """
                         )

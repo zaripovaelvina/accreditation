@@ -17,9 +17,10 @@
         <postgresql.version>42.3.1</postgresql.version>
         <junit-jupiter-api.version>5.8.1</junit-jupiter-api.version>
         <testcontainers.version>1.16.2</testcontainers.version>
-        <maven-surefire-plugin.version>2.22.1</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>${project.maven-surefire-plugin.version}</maven-surefire-plugin.version>
         <tika-core.version>1.26</tika-core.version>
         <spring-boot-starter-mail.version>2.6.2</spring-boot-starter-mail.version>
+        <project.maven-surefire-plugin.version>2.22.1</project.maven-surefire-plugin.version>
     </properties>
 
     <dependencies>

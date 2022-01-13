@@ -23,18 +23,7 @@ Content-Type: application/json
 {
   "id": 0,
   "name": "Стрельба по мишени 2022",
-  "image": "{{mediaName}}"
-}
-
-### Администратор приложения заводит мероприятия
-
-POST http://localhost:8080/event/save
-Content-Type: application/json
-
-{
-  "id": 0,
-  "name": "Практическая стрельба 2022",
-  "image": "5b3a4ba6-62e0-4ee5-95f8-5dbeaf29722f.jpeg"
+  "image": "noimage.png"
 }
 
 ### Участник заходит в приложение, видит все мероприятия
@@ -43,7 +32,7 @@ GET http://localhost:8080/event/getAll
 
 ### Участник выбирает мероприятие
 
-GET http://localhost:8080/event/getById?id=1
+GET http://localhost:8080/event/getById?id=5
 
 ### Участник регистрируется в системе
 
